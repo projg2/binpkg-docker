@@ -13,7 +13,7 @@ ARG USE
 
 VOLUME /var/cache/binpkgs
 ENV PKG=${PKG}
-CMD emerge -1vB ${PKG}
+CMD FEATURES=test emerge -1vB ${PKG}
 
 COPY local.diff /
 RUN patch -p1 -d /var/db/repos/gentoo < /local.diff \

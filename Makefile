@@ -59,7 +59,7 @@ build-amd64-vanilla-kernel: local.diff
 		--build-arg ARCH=amd64 \
 		--build-arg BASE=gentoo/stage3-amd64-nomultilib \
 		--build-arg PKG=sys-kernel/vanilla-kernel \
-		--build-arg DEPS='virtual/libelf sys-devel/bc' \
+		--build-arg DEPS='virtual/libelf sys-devel/bc app-emulation/qemu dev-tcltk/expect sys-kernel/dracut' \
 		--build-arg CFLAGS='-march=x86-64 -mtune=generic -O2 -pipe' \
 		-t $@ .
 
@@ -71,7 +71,7 @@ build-x86-vanilla-kernel: local.diff
 		--build-arg ARCH=x86 \
 		--build-arg BASE=gentoo/stage3-x86 \
 		--build-arg PKG=sys-kernel/vanilla-kernel \
-		--build-arg DEPS='virtual/libelf sys-devel/bc' \
+		--build-arg DEPS='virtual/libelf sys-devel/bc app-emulation/qemu dev-tcltk/expect sys-kernel/dracut' \
 		--build-arg CFLAGS='-march=pentium-m -mtune=generic -O2 -pipe' \
 		-t $@ .
 
