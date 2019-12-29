@@ -1,0 +1,2 @@
+*/* CPU_FLAGS_X86: sse2
+app-emulation/qemu -aio -caps -filecaps -jpeg -ncurses -png -vhost-net -vnc -xattr

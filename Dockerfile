@@ -9,18 +9,17 @@ ARG ARCH
 ARG PKG
 ARG DEPS
 ARG CFLAGS
-ARG USE
 
 VOLUME /var/cache/binpkgs
 ENV PKG=${PKG}
 CMD FEATURES=test emerge -1vB ${PKG}
 
 COPY local.diff /
+COPY package.accept_keywords /etc/portage
+COPY package.use /etc/portage/package.use/local
 RUN patch -p1 -d /var/db/repos/gentoo < /local.diff \
  && rm /local.diff \
- && echo ${PKG} '~'${ARCH} >> /etc/portage/package.accept_keywords \
- && { [[ -z ${USE} ]] || echo ${PKG} ${USE} >> /etc/portage/package.use/local; } \
  && printf '\nCFLAGS="%s"\nCXXFLAGS="%s"\nBINPKG_COMPRESS="xz"\nBINPKG_COMPRESS_FLAGS="-9"\nFEATURES="${FEATURES} -sandbox -usersandbox -cgroup binpkg-multi-instance -binpkg-docompress -binpkg-dostrip"\n' "${CFLAGS}" "${CFLAGS}" >> /etc/portage/make.conf \
- && { [[ -z ${DEPS} ]] || emerge -1v --jobs ${DEPS}; } \
+ && { [[ -z ${DEPS} ]] || emerge -1vt --jobs ${DEPS}; } \
  && cat /etc/portage/make.conf \
  && emerge -1vBp ${PKG}

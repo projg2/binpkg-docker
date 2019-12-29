@@ -35,7 +35,6 @@ build-x86-pypy: local.diff
 		--build-arg PKG=dev-python/pypy-exe \
 		--build-arg DEPS='<dev-python/pypy-bin-7.3' \
 		--build-arg CFLAGS='-march=pentium-m -mtune=generic -O2 -pipe' \
-		--build-arg USE=cpu_flags_x86_sse2 \
 		-t $@ .
 
 x86-pypy: build-x86-pypy
@@ -48,7 +47,6 @@ build-x86-pypy3: local.diff
 		--build-arg PKG=dev-python/pypy3-exe \
 		--build-arg DEPS='<virtual/pypy-7.3 <dev-python/pypy-bin-7.3' \
 		--build-arg CFLAGS='-march=pentium-m -mtune=generic -O2 -pipe' \
-		--build-arg USE=cpu_flags_x86_sse2 \
 		-t $@ .
 
 x86-pypy3: build-x86-pypy3
