@@ -8,8 +8,9 @@ build: build-amd64-vanilla-kernel build-x86-vanilla-kernel
 build-amd64-pypy: local.diff
 	$(DOCKER) build --pull \
 		--build-arg ARCH=amd64 \
-		--build-arg BASE=mgorny/gentoo-python \
+		--build-arg BASE=gentoo/stage3-amd64-nomultilib \
 		--build-arg PKG=dev-python/pypy-exe \
+		--build-arg DEPS='<dev-python/pypy-bin-7.3' \
 		--build-arg CFLAGS='-march=x86-64 -mtune=generic -O2 -pipe' \
 		-t $@ .
 
@@ -19,7 +20,7 @@ amd64-pypy: build-amd64-pypy
 build-amd64-pypy3: local.diff
 	$(DOCKER) build --pull \
 		--build-arg ARCH=amd64 \
-		--build-arg BASE=mgorny/gentoo-python \
+		--build-arg BASE=gentoo/stage3-amd64-nomultilib \
 		--build-arg PKG=dev-python/pypy3-exe \
 		--build-arg DEPS='<virtual/pypy-7.3' \
 		--build-arg CFLAGS='-march=x86-64 -mtune=generic -O2 -pipe' \
