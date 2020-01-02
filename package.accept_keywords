@@ -11,3 +11,34 @@ sys-kernel/vanilla-kernel ~amd64 ~x86
 sys-kernel/vanilla-kernel-bin ~amd64 ~x86
 virtual/pypy ~amd64 ~x86
 virtual/pypy3 ~amd64 ~x86
+
+# for pypy3 testing
+dev-python/setuptools ~amd64 ~x86
+dev-python/certifi ~amd64 ~x86
+dev-python/six ~amd64 ~x86
+virtual/python-ipaddress ~amd64 ~x86
+virtual/python-enum34 ~amd64 ~x86
+dev-python/cryptography ~amd64 ~x86
+
+# for kernel testing
+sys-apps/debianutils ~amd64 ~x86
+sys-kernel/installkernel-gentoo ~amd64 ~x86
+dev-libs/libb64 ~amd64 ~x86
+net-libs/grpc ~amd64 ~x86
+app-crypt/tpm-emulator ~amd64 ~x86
+app-emulation/virtualbox-guest-additions ~amd64 ~x86
+app-emulation/virtualbox-modules ~amd64 ~x86
+app-laptop/tp_smapi ~amd64 ~x86
+dev-util/lttng-modules ~amd64 ~x86
+dev-util/sysdig ~amd64 ~x86
+media-tv/v4l-dvb-saa716x ~amd64 ~x86
+net-firewall/ipt_netflow ~amd64 ~x86
+net-firewall/rtsp-conntrack ~amd64 ~x86
+net-firewall/xtables-addons ~amd64 ~x86
+net-misc/AQtion ~amd64 ~x86
+net-vpn/wireguard-modules ~amd64 ~x86
+net-wireless/broadcom-sta ~amd64 ~x86
+sys-fs/vhba ~amd64 ~x86
+sys-fs/zfs-kmod ~amd64 ~x86
+sys-power/acpi_call ~amd64 ~x86
+sys-power/bbswitch ~amd64 ~x86
