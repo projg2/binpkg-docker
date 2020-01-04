@@ -148,10 +148,10 @@ build-amd64-vanilla-kernel-bin: local.diff
 	$(DOCKER) build $(BUILD_ARGS) $(ARGS_AMD64) $(ARGS_KERNEL_AMD64) \
 		$(ARGS_VANILLA_KERNEL_BIN) -t $@ .
 amd64-vanilla-kernel-bin: build-amd64-vanilla-kernel-bin
-	$(DOCKER) run $(RUN_ARGS_AMD64_KERNEL) build-$@
+	$(DOCKER) run $(RUN_ARGS_BIN) build-$@
 
 build-x86-vanilla-kernel-bin: local.diff
 	$(DOCKER) build $(BUILD_ARGS) $(ARGS_X86) $(ARGS_KERNEL_X86) \
 		$(ARGS_VANILLA_KERNEL_BIN) -t $@ .
 x86-vanilla-kernel-bin: build-x86-vanilla-kernel-bin
-	$(DOCKER) run $(RUN_ARGS_X86_KERNEL) build-$@
+	$(DOCKER) run $(RUN_ARGS_BIN) build-$@
