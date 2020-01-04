@@ -37,7 +37,8 @@ ARGS_KERNEL_COMMON = \
 		dev-tcltk/expect \
 		sys-kernel/dracut \
 		net-misc/openssh \
-		' \
+		'
+ARGS_KERNEL_AMD64 = \
 	--build-arg POST_PKGS=' \
 		app-crypt/tpm-emulator \
 		app-emulation/virtualbox-guest-additions \
@@ -54,6 +55,20 @@ ARGS_KERNEL_COMMON = \
 		sys-fs/vhba \
 		sys-fs/zfs-kmod \
 		sys-power/acpi_call \
+		sys-power/bbswitch \
+		'
+ARGS_KERNEL_X86 = \
+	--build-arg POST_PKGS=' \
+		app-crypt/tpm-emulator \
+		app-laptop/tp_smapi \
+		dev-util/lttng-modules \
+		dev-util/sysdig \
+		net-firewall/ipt_netflow \
+		net-firewall/rtsp-conntrack \
+		net-firewall/xtables-addons \
+		net-vpn/wireguard-modules \
+		net-wireless/broadcom-sta \
+		sys-fs/vhba \
 		sys-power/bbswitch \
 		'
 ARGS_VANILLA_KERNEL = $(ARGS_KERNEL_COMMON) \
@@ -118,21 +133,25 @@ x86-pypy3-bin: build-x86-pypy3-bin
 	$(DOCKER) run $(RUN_ARGS_BIN) build-$@
 
 build-amd64-vanilla-kernel: local.diff
-	$(DOCKER) build $(BUILD_ARGS) $(ARGS_AMD64) $(ARGS_VANILLA_KERNEL) -t $@ .
+	$(DOCKER) build $(BUILD_ARGS) $(ARGS_AMD64) $(ARGS_KERNEL_AMD64) \
+		$(ARGS_VANILLA_KERNEL) -t $@ .
 amd64-vanilla-kernel: build-amd64-vanilla-kernel
 	$(DOCKER) run $(RUN_ARGS_AMD64_KERNEL) build-$@
 
 build-x86-vanilla-kernel: local.diff
-	$(DOCKER) build $(BUILD_ARGS) $(ARGS_X86) $(ARGS_VANILLA_KERNEL) -t $@ .
+	$(DOCKER) build $(BUILD_ARGS) $(ARGS_X86) $(ARGS_KERNEL_X86) \
+		$(ARGS_VANILLA_KERNEL) -t $@ .
 x86-vanilla-kernel: build-x86-vanilla-kernel
 	$(DOCKER) run $(RUN_ARGS_X86_KERNEL) build-$@
 
 build-amd64-vanilla-kernel-bin: local.diff
-	$(DOCKER) build $(BUILD_ARGS) $(ARGS_AMD64) $(ARGS_VANILLA_KERNEL_BIN) -t $@ .
+	$(DOCKER) build $(BUILD_ARGS) $(ARGS_AMD64) $(ARGS_KERNEL_AMD64) \
+		$(ARGS_VANILLA_KERNEL_BIN) -t $@ .
 amd64-vanilla-kernel-bin: build-amd64-vanilla-kernel-bin
 	$(DOCKER) run $(RUN_ARGS_AMD64_KERNEL) build-$@
 
 build-x86-vanilla-kernel-bin: local.diff
-	$(DOCKER) build $(BUILD_ARGS) $(ARGS_X86) $(ARGS_VANILLA_KERNEL_BIN) -t $@ .
+	$(DOCKER) build $(BUILD_ARGS) $(ARGS_X86) $(ARGS_KERNEL_X86) \
+		$(ARGS_VANILLA_KERNEL_BIN) -t $@ .
 x86-vanilla-kernel-bin: build-x86-vanilla-kernel-bin
 	$(DOCKER) run $(RUN_ARGS_X86_KERNEL) build-$@

@@ -1,44 +1,44 @@
-dev-python/pypy ~amd64 ~x86
-dev-python/pypy-bin ~amd64 ~x86
-dev-python/pypy-exe ~amd64 ~x86
-dev-python/pypy-exe-bin ~amd64 ~x86
-dev-python/pypy3 ~amd64 ~x86
-dev-python/pypy3-bin ~amd64 ~x86
-dev-python/pypy3-exe ~amd64 ~x86
-dev-python/pypy3-exe-bin ~amd64 ~x86
-sys-kernel/dracut ~amd64 ~x86
-sys-kernel/vanilla-kernel ~amd64 ~x86
-sys-kernel/vanilla-kernel-bin ~amd64 ~x86
-virtual/pypy ~amd64 ~x86
-virtual/pypy3 ~amd64 ~x86
+dev-python/pypy
+dev-python/pypy-bin
+dev-python/pypy-exe
+dev-python/pypy-exe-bin
+dev-python/pypy3
+dev-python/pypy3-bin
+dev-python/pypy3-exe
+dev-python/pypy3-exe-bin
+sys-kernel/dracut
+sys-kernel/vanilla-kernel
+sys-kernel/vanilla-kernel-bin
+virtual/pypy
+virtual/pypy3
 
 # for pypy3 testing
-dev-python/setuptools ~amd64 ~x86
-dev-python/certifi ~amd64 ~x86
-dev-python/six ~amd64 ~x86
-virtual/python-ipaddress ~amd64 ~x86
-virtual/python-enum34 ~amd64 ~x86
-dev-python/cryptography ~amd64 ~x86
+dev-python/setuptools
+dev-python/certifi
+dev-python/six
+virtual/python-ipaddress
+virtual/python-enum34
+dev-python/cryptography
 
 # for kernel testing
-sys-apps/debianutils ~amd64 ~x86
-sys-kernel/installkernel-gentoo ~amd64 ~x86
-dev-libs/libb64 ~amd64 ~x86
-net-libs/grpc ~amd64 ~x86
-app-crypt/tpm-emulator ~amd64 ~x86
-app-emulation/virtualbox-guest-additions ~amd64 ~x86
-app-emulation/virtualbox-modules ~amd64 ~x86
-app-laptop/tp_smapi ~amd64 ~x86
-dev-util/lttng-modules ~amd64 ~x86
-dev-util/sysdig ~amd64 ~x86
-media-tv/v4l-dvb-saa716x ~amd64 ~x86
-net-firewall/ipt_netflow ~amd64 ~x86
-net-firewall/rtsp-conntrack ~amd64 ~x86
-net-firewall/xtables-addons ~amd64 ~x86
-net-misc/AQtion ~amd64 ~x86
-net-vpn/wireguard-modules ~amd64 ~x86
-net-wireless/broadcom-sta ~amd64 ~x86
-sys-fs/vhba ~amd64 ~x86
-sys-fs/zfs-kmod ~amd64 ~x86
-sys-power/acpi_call ~amd64 ~x86
-sys-power/bbswitch ~amd64 ~x86
+sys-apps/debianutils
+sys-kernel/installkernel-gentoo
+dev-libs/libb64
+net-libs/grpc
+app-crypt/tpm-emulator
+app-emulation/virtualbox-guest-additions
+app-emulation/virtualbox-modules
+app-laptop/tp_smapi
+dev-util/lttng-modules
+dev-util/sysdig
+media-tv/v4l-dvb-saa716x
+net-firewall/ipt_netflow
+net-firewall/rtsp-conntrack
+net-firewall/xtables-addons
+net-misc/AQtion
+net-vpn/wireguard-modules
+net-wireless/broadcom-sta
+sys-fs/vhba
+sys-fs/zfs-kmod
+sys-power/acpi_call
+sys-power/bbswitch
