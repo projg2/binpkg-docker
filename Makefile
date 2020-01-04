@@ -155,3 +155,8 @@ build-x86-vanilla-kernel-bin: local.diff
 		$(ARGS_VANILLA_KERNEL_BIN) -t $@ .
 x86-vanilla-kernel-bin: build-x86-vanilla-kernel-bin
 	$(DOCKER) run $(RUN_ARGS_BIN) build-$@
+
+prune:
+	$(DOCKER) container prune -f
+	$(DOCKER) image prune -a -f
+	$(DOCKER) volume prune -f
