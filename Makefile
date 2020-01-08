@@ -76,6 +76,61 @@ ARGS_VANILLA_KERNEL = $(ARGS_KERNEL_COMMON) \
 ARGS_VANILLA_KERNEL_BIN = $(ARGS_KERNEL_COMMON) \
 	--build-arg PKG=sys-kernel/vanilla-kernel-bin
 
+ARGS_KERNEL_LTS_AMD64 = \
+	--build-arg POST_PKGS=' \
+		app-crypt/tpm-emulator \
+		app-emulation/virtualbox-guest-additions \
+		app-emulation/virtualbox-modules \
+		app-laptop/tp_smapi \
+		dev-util/lttng-modules \
+		dev-util/sysdig \
+		media-video/v4l2loopback \
+		net-dialup/accel-ppp \
+		net-firewall/ipt_netflow \
+		net-firewall/rtsp-conntrack \
+		net-firewall/xtables-addons \
+		net-fs/openafs \
+		net-misc/AQtion \
+		net-misc/ena-driver \
+		net-vpn/wireguard-modules \
+		net-wireless/broadcom-sta \
+		sci-libs/linux-gpib-modules \
+		sys-cluster/knem \
+		sys-fs/loop-aes \
+		sys-fs/vhba \
+		sys-fs/zfs-kmod \
+		sys-kernel/cryptodev \
+		sys-power/acpi_call \
+		sys-power/bbswitch \
+		x11-drivers/nvidia-drivers \
+		'
+ARGS_KERNEL_LTS_X86 = \
+	--build-arg POST_PKGS=' \
+		app-crypt/tpm-emulator \
+		app-laptop/tp_smapi \
+		dev-util/lttng-modules \
+		dev-util/sysdig \
+		media-video/v4l2loopback \
+		net-dialup/accel-ppp \
+		net-firewall/ipt_netflow \
+		net-firewall/rtsp-conntrack \
+		net-firewall/xtables-addons \
+		net-fs/openafs \
+		net-vpn/wireguard-modules \
+		net-wireless/broadcom-sta \
+		sci-libs/linux-gpib-modules \
+		sys-cluster/knem \
+		sys-fs/loop-aes \
+		sys-fs/vhba \
+		sys-kernel/cryptodev \
+		sys-power/bbswitch \
+		x11-drivers/nvidia-drivers \
+		'
+ARGS_VANILLA_KERNEL_LTS = $(ARGS_KERNEL_COMMON) \
+	--build-arg PKG='<sys-kernel/vanilla-kernel-5'
+ARGS_VANILLA_KERNEL_LTS_BIN = $(ARGS_KERNEL_COMMON) \
+	--build-arg PKG='<sys-kernel/vanilla-kernel-bin-5'
+
 BINPKGROOT = ~/binpkg
 RUN_ARGS_AMD64_PYPY = \
 	-v $(BINPKGROOT)/amd64/pypy:/var/cache/binpkgs
@@ -154,6 +209,30 @@ build-x86-vanilla-kernel-bin: local.diff
 	$(DOCKER) build $(BUILD_ARGS) $(ARGS_X86) $(ARGS_KERNEL_X86) \
 		$(ARGS_VANILLA_KERNEL_BIN) -t $@ .
 x86-vanilla-kernel-bin: build-x86-vanilla-kernel-bin
+	$(DOCKER) run $(RUN_ARGS_BIN) build-$@
+
+build-amd64-vanilla-kernel-lts: local.diff
+	$(DOCKER) build $(BUILD_ARGS) $(ARGS_AMD64) $(ARGS_KERNEL_LTS_AMD64) \
+		$(ARGS_VANILLA_KERNEL_LTS) -t $@ .
+amd64-vanilla-kernel-lts: build-amd64-vanilla-kernel-lts
+	$(DOCKER) run $(RUN_ARGS_AMD64_KERNEL) build-$@
+
+build-x86-vanilla-kernel-lts: local.diff
+	$(DOCKER) build $(BUILD_ARGS) $(ARGS_X86) $(ARGS_KERNEL_LTS_X86) \
+		$(ARGS_VANILLA_KERNEL_LTS) -t $@ .
+x86-vanilla-kernel-lts: build-x86-vanilla-kernel-lts
+	$(DOCKER) run $(RUN_ARGS_X86_KERNEL) build-$@
+
+build-amd64-vanilla-kernel-lts-bin: local.diff
+	$(DOCKER) build $(BUILD_ARGS) $(ARGS_AMD64) $(ARGS_KERNEL_LTS_AMD64) \
+		$(ARGS_VANILLA_KERNEL_LTS_BIN) -t $@ .
+amd64-vanilla-kernel-lts-bin: build-amd64-vanilla-kernel-lts-bin
+	$(DOCKER) run $(RUN_ARGS_BIN) build-$@
+
+build-x86-vanilla-kernel-lts-bin: local.diff
+	$(DOCKER) build $(BUILD_ARGS) $(ARGS_X86) $(ARGS_KERNEL_LTS_X86) \
+		$(ARGS_VANILLA_KERNEL_LTS_BIN) -t $@ .
+x86-vanilla-kernel-lts-bin: build-x86-vanilla-kernel-lts-bin
 	$(DOCKER) run $(RUN_ARGS_BIN) build-$@
 
 prune:

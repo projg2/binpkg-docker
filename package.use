@@ -14,3 +14,13 @@ sys-kernel/vanilla-kernel test
 sys-kernel/vanilla-kernel-bin test
 app-crypt/tpm-emulator modules
 dev-util/sysdig modules
+net-dialup/accel-ppp ipoe
+net-firewall/ipset modules
+net-firewall/xtables-addons modules
+net-fs/openafs modules
+net-vpn/wireguard-modules module
+sys-cluster/knem modules
+sys-cluster/lustre modules
+sys-kernel/kpatch kmod
+x11-drivers/nvidia-drivers -tools -X
+sys-apps/util-linux caps
