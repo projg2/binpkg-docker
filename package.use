@@ -10,6 +10,8 @@ virtual/python-enum34 PYTHON_TARGETS: pypy3
 dev-python/cryptography PYTHON_TARGETS: pypy3
 
 # for kernel testing
+sys-kernel/gentoo-kernel test
+sys-kernel/gentoo-kernel-bin test
 sys-kernel/vanilla-kernel test
 sys-kernel/vanilla-kernel-bin test
 app-crypt/tpm-emulator modules
