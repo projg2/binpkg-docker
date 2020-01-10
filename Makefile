@@ -146,16 +146,19 @@ RUN_ARGS_GENTOO_KERNEL_LTS_BIN = \
 	-e PKG='<sys-kernel/gentoo-kernel-bin-5'
 
 BINPKGROOT = ~/binpkg
-BIN_ARGS_AMD64_PYPY = \
+DISTCACHE = ~/distfiles
+BIN_ARGS_COMMON = \
+	-v $(DISTCACHE):/var/cache/distfiles
+BIN_ARGS_AMD64_PYPY = $(BIN_ARGS_COMMON) \
 	-v $(BINPKGROOT)/amd64/pypy:/var/cache/binpkgs
-BIN_ARGS_X86_PYPY = \
+BIN_ARGS_X86_PYPY = $(BIN_ARGS_COMMON) \
 	-v $(BINPKGROOT)/x86/pypy:/var/cache/binpkgs
-BIN_ARGS_AMD64_KERNEL = \
+BIN_ARGS_AMD64_KERNEL = $(BIN_ARGS_COMMON) \
 	-v $(BINPKGROOT)/amd64/kernel:/var/cache/binpkgs
-BIN_ARGS_X86_KERNEL = \
+BIN_ARGS_X86_KERNEL = $(BIN_ARGS_COMMON) \
 	-v $(BINPKGROOT)/x86/kernel:/var/cache/binpkgs
 # throwaway
-BIN_ARGS_BIN =
+BIN_ARGS_BIN = $(BIN_ARGS_COMMON)
 
 
 build-deps: build-amd64-pypy-deps build-x86-pypy-deps
