@@ -147,8 +147,10 @@ RUN_ARGS_GENTOO_KERNEL_LTS_BIN = \
 
 BINPKGROOT = ~/binpkg
 DISTCACHE = ~/distfiles
+CCACHE = ~/ccache
 BIN_ARGS_COMMON = \
-	-v $(DISTCACHE):/var/cache/distfiles
+	-v $(DISTCACHE):/var/cache/distfiles \
+	-v $(CCACHE):/var/tmp/ccache
 BIN_ARGS_AMD64_PYPY = $(BIN_ARGS_COMMON) \
 	-v $(BINPKGROOT)/amd64/pypy:/var/cache/binpkgs
 BIN_ARGS_X86_PYPY = $(BIN_ARGS_COMMON) \
