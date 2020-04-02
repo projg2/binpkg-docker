@@ -46,7 +46,6 @@ RUN_ARGS_KERNEL_AMD64 = \
 	-e POST_PKGS=' \
 		app-crypt/tpm-emulator \
 		app-laptop/tp_smapi \
-		dev-util/lttng-modules \
 		dev-util/sysdig \
 		net-firewall/ipt_netflow \
 		net-firewall/rtsp-conntrack \
@@ -62,7 +61,6 @@ RUN_ARGS_KERNEL_X86 = \
 	-e POST_PKGS=' \
 		app-crypt/tpm-emulator \
 		app-laptop/tp_smapi \
-		dev-util/lttng-modules \
 		dev-util/sysdig \
 		net-firewall/ipt_netflow \
 		net-firewall/rtsp-conntrack \
@@ -140,7 +138,6 @@ RUN_ARGS_KERNEL_LTS_AMD64 = \
 		net-firewall/xtables-addons \
 		net-fs/openafs \
 		net-misc/AQtion \
-		net-misc/ena-driver \
 		net-vpn/wireguard-modules \
 		net-wireless/broadcom-sta \
 		sci-libs/linux-gpib-modules \
