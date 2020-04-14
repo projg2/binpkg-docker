@@ -45,8 +45,11 @@ ARGS_KERNEL_DEPS = \
 RUN_ARGS_KERNEL_AMD64 = \
 	-e POST_PKGS=' \
 		app-crypt/tpm-emulator \
+		app-emulation/virtualbox-modules \
 		app-laptop/tp_smapi \
 		dev-util/sysdig \
+		media-video/v4l2loopback \
+		net-dialup/accel-ppp \
 		net-firewall/ipt_netflow \
 		net-firewall/rtsp-conntrack \
 		net-firewall/xtables-addons \
@@ -56,12 +59,15 @@ RUN_ARGS_KERNEL_AMD64 = \
 		sys-fs/vhba \
 		sys-power/acpi_call \
 		sys-power/bbswitch \
+		x11-drivers/nvidia-drivers \
 		'
 RUN_ARGS_KERNEL_X86 = \
 	-e POST_PKGS=' \
 		app-crypt/tpm-emulator \
 		app-laptop/tp_smapi \
 		dev-util/sysdig \
+		media-video/v4l2loopback \
+		net-dialup/accel-ppp \
 		net-firewall/ipt_netflow \
 		net-firewall/rtsp-conntrack \
 		net-firewall/xtables-addons \
@@ -88,6 +94,8 @@ RUN_ARGS_KERNEL_54_AMD64 = \
 		app-laptop/tp_smapi \
 		dev-util/lttng-modules \
 		dev-util/sysdig \
+		media-video/v4l2loopback \
+		net-dialup/accel-ppp \
 		net-firewall/ipt_netflow \
 		net-firewall/rtsp-conntrack \
 		net-firewall/xtables-addons \
@@ -98,6 +106,7 @@ RUN_ARGS_KERNEL_54_AMD64 = \
 		sys-fs/zfs-kmod \
 		sys-power/acpi_call \
 		sys-power/bbswitch \
+		x11-drivers/nvidia-drivers \
 		'
 RUN_ARGS_KERNEL_54_X86 = \
 	-e POST_PKGS=' \
@@ -105,6 +114,8 @@ RUN_ARGS_KERNEL_54_X86 = \
 		app-laptop/tp_smapi \
 		dev-util/lttng-modules \
 		dev-util/sysdig \
+		media-video/v4l2loopback \
+		net-dialup/accel-ppp \
 		net-firewall/ipt_netflow \
 		net-firewall/rtsp-conntrack \
 		net-firewall/xtables-addons \
@@ -112,6 +123,7 @@ RUN_ARGS_KERNEL_54_X86 = \
 		net-wireless/broadcom-sta \
 		sys-fs/vhba \
 		sys-power/bbswitch \
+		x11-drivers/nvidia-drivers \
 		'
 
 RUN_ARGS_VANILLA_KERNEL_54 = \
