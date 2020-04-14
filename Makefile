@@ -251,22 +251,22 @@ amd64-pypy3-bin: build-amd64-pypy3-bin
 build-x86-pypy: build-x86-pypy-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< $(ARGS_PYPY) -t $@ .
 x86-pypy: build-x86-pypy
-	$(DOCKER) run $(BIN_ARGS_X86_PYPY) build-$@
+	$(DOCKER) run $(BIN_ARGS_X86_PYPY) $(RUN_ARGS_PYPY) build-$@
 
 build-x86-pypy3: build-x86-pypy-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< $(ARGS_PYPY3) -t $@ .
 x86-pypy3: build-x86-pypy3
-	$(DOCKER) run $(BIN_ARGS_X86_PYPY) build-$@
+	$(DOCKER) run $(BIN_ARGS_X86_PYPY) $(RUN_ARGS_PYPY3) build-$@
 
 build-x86-pypy-bin: build-x86-pypy-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< $(ARGS_PYPY_BIN) -t $@ .
 x86-pypy-bin: build-x86-pypy-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) build-$@
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_PYPY_BIN) build-$@
 
 build-x86-pypy3-bin: build-x86-pypy-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< $(ARGS_PYPY3_BIN) -t $@ .
 x86-pypy3-bin: build-x86-pypy3-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) build-$@
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_PYPY3_BIN) build-$@
 
 
 build-amd64-vanilla-kernel: build-amd64-kernel-deps local.diff
