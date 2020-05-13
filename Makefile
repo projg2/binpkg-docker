@@ -264,6 +264,15 @@ build: build-amd64-gentoo-kernel-5.4 build-x86-gentoo-kernel-5.4
 build: build-amd64-gentoo-kernel-4.19 build-x86-gentoo-kernel-4.19
 
 
+gentoo-x86-stable:
+	$(DOCKER) build -f Dockerfile.base \
+		--build-arg BASE=gentoo/stage3-x86 -t mgorny/$@ .
+
+gentoo-amd64-stable:
+	$(DOCKER) build -f Dockerfile.base \
+		--build-arg BASE=gentoo/stage3-amd64-nomultilib -t mgorny/$@ .
+
+
 build-amd64-pypy-deps:
 	$(DOCKER) build -f Dockerfile.deps \
 		$(BUILD_ARGS_DEPS) $(ARGS_AMD64) $(ARGS_PYPY_DEPS) -t $@ .
