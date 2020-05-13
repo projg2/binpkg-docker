@@ -3,10 +3,10 @@ BUILD_ARGS_DEPS = --pull
 BUILD_ARGS =
 
 ARGS_AMD64 = \
-	--build-arg BASE=gentoo/stage3-amd64-nomultilib \
+	--build-arg BASE=mgorny/gentoo-amd64-stable \
 	--build-arg CFLAGS='-march=x86-64 -mtune=generic -O2 -pipe'
 ARGS_X86 = \
-	--build-arg BASE=gentoo/stage3-x86 \
+	--build-arg BASE=mgorny/gentoo-x86-stable \
 	--build-arg CFLAGS='-march=pentium-m -mtune=generic -O2 -pipe'
 
 
