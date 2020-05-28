@@ -148,7 +148,6 @@ RUN_ARGS_KERNEL_5_4_X86 = \
 		app-crypt/tpm-emulator \
 		app-laptop/tp_smapi \
 		dev-util/lttng-modules \
-		dev-util/sysdig-kmod \
 		media-video/v4l2loopback \
 		net-dialup/accel-ppp \
 		net-firewall/ipt_netflow \
