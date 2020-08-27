@@ -10,6 +10,6 @@ ARG CFLAGS
 
 COPY package.accept_keywords /etc/portage
 COPY package.use /etc/portage/package.use/local
-RUN printf '\nCFLAGS="%s"\nCXXFLAGS="%s"\nBINPKG_COMPRESS="xz"\nBINPKG_COMPRESS_FLAGS="-9"\nFEATURES="${FEATURES} -sandbox -usersandbox -cgroup binpkg-multi-instance -binpkg-docompress -binpkg-dostrip ccache"\nACCEPT_LICENSE="*"\nPKGDIR="/tmp/binpkg"\n' "${CFLAGS}" "${CFLAGS}" >> /etc/portage/make.conf \
- && { [[ -z ${DEPS} ]] || emerge -1vt --jobs ${DEPS} dev-util/ccache; } \
+RUN printf '\nCFLAGS="%s"\nCXXFLAGS="%s"\nBINPKG_COMPRESS="xz"\nBINPKG_COMPRESS_FLAGS="-9"\nFEATURES="${FEATURES} -sandbox -usersandbox -cgroup binpkg-multi-instance -binpkg-docompress -binpkg-dostrip"\nACCEPT_LICENSE="*"\nPKGDIR="/tmp/binpkg"\n' "${CFLAGS}" "${CFLAGS}" >> /etc/portage/make.conf \
+ && { [[ -z ${DEPS} ]] || emerge -1vt --jobs ${DEPS}; } \
  && cat /etc/portage/make.conf
