@@ -23,6 +23,7 @@ virtual/python-enum34
 dev-python/cryptography
 
 # for kernel testing
+dev-util/dwarves
 sys-apps/debianutils
 sys-kernel/installkernel-gentoo
 dev-libs/libb64
