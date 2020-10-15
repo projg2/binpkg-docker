@@ -3,6 +3,7 @@ app-emulation/qemu -aio -caps -filecaps -jpeg -ncurses -png -vhost-net -vnc -xat
 
 # for pypy testing
 dev-python/setuptools PYTHON_TARGETS: pypy3
+dev-python/setuptools_scm PYTHON_TARGETS: pypy3
 dev-python/certifi PYTHON_TARGETS: pypy3
 dev-python/six PYTHON_TARGETS: pypy3
 virtual/python-ipaddress PYTHON_TARGETS: pypy3

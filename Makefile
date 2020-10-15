@@ -188,7 +188,6 @@ RUN_ARGS_KERNEL_5_4_AMD64 = \
 		app-emulation/virtualbox-guest-additions \
 		app-emulation/virtualbox-modules \
 		app-laptop/tp_smapi \
-		dev-util/lttng-modules \
 		dev-util/sysdig-kmod \
 		media-video/v4l2loopback \
 		net-dialup/accel-ppp \
@@ -206,7 +205,6 @@ RUN_ARGS_KERNEL_5_4_X86 = \
 	-e POST_PKGS=' \
 		app-crypt/tpm-emulator \
 		app-laptop/tp_smapi \
-		dev-util/lttng-modules \
 		media-video/v4l2loopback \
 		net-dialup/accel-ppp \
 		net-firewall/rtsp-conntrack \

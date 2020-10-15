@@ -16,6 +16,7 @@ virtual/pypy3
 
 # for pypy3 testing
 dev-python/setuptools
+dev-python/setuptools_scm
 dev-python/certifi
 dev-python/six
 virtual/python-ipaddress
