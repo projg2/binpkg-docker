@@ -1,16 +1,15 @@
-dev-python/pypy
-dev-python/pypy-bin
-dev-python/pypy-exe
-dev-python/pypy-exe-bin
-dev-python/pypy3
-dev-python/pypy3-bin
-dev-python/pypy3-exe
-dev-python/pypy3-exe-bin
+dev-python/pypy **
+dev-python/pypy-exe **
+dev-python/pypy-exe-bin **
+dev-python/pypy3 **
+dev-python/pypy3-exe **
+dev-python/pypy3-exe-bin **
 sys-kernel/dracut
 sys-kernel/gentoo-kernel
 sys-kernel/gentoo-kernel-bin
 sys-kernel/vanilla-kernel
 sys-kernel/vanilla-kernel-bin
+virtual/dist-kernel
 virtual/pypy
 virtual/pypy3
 

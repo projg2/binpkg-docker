@@ -2,6 +2,10 @@ DOCKER ?= docker
 BUILD_ARGS_DEPS = --pull
 BUILD_ARGS =
 
+KERNEL_NEWEST_LT = 5.11
+KERNEL_SECOND_LT = 5.10
+KERNEL_LTS_LT = 5.5
+
 ARGS_AMD64 = \
 	--build-arg BASE=gentoo/stage3-amd64-nomultilib \
 	--build-arg CFLAGS='-march=x86-64 -mtune=generic -O2 -pipe'
@@ -44,9 +48,36 @@ ARGS_KERNEL_DEPS = \
 		'
 
 
-RUN_ARGS_KERNEL_5_8_AMD64 = \
+RUN_ARGS_KERNEL_NEWEST_AMD64 = \
 	-e POST_PKGS=' \
-		app-crypt/tpm-emulator \
+		app-laptop/tp_smapi \
+		net-dialup/accel-ppp \
+		net-firewall/rtsp-conntrack \
+		sys-fs/vhba \
+		sys-power/acpi_call \
+		sys-power/bbswitch \
+		'
+RUN_ARGS_KERNEL_NEWEST_X86 = \
+	-e POST_PKGS=' \
+		app-laptop/tp_smapi \
+		net-dialup/accel-ppp \
+		net-firewall/rtsp-conntrack \
+		sys-fs/vhba \
+		sys-power/bbswitch \
+		'
+
+RUN_ARGS_VANILLA_KERNEL_NEWEST = \
+	-e PKG='<sys-kernel/vanilla-kernel-$(KERNEL_NEWEST_LT)'
+RUN_ARGS_VANILLA_KERNEL_NEWEST_BIN = \
+	-e PKG='<sys-kernel/vanilla-kernel-bin-$(KERNEL_NEWEST_LT)'
+RUN_ARGS_GENTOO_KERNEL_NEWEST = \
+	-e PKG='<sys-kernel/gentoo-kernel-$(KERNEL_NEWEST_LT)'
+RUN_ARGS_GENTOO_KERNEL_NEWEST_BIN = \
+	-e PKG='<sys-kernel/gentoo-kernel-bin-$(KERNEL_NEWEST_LT)'
+
+
+RUN_ARGS_KERNEL_SECOND_AMD64 = \
+	-e POST_PKGS=' \
 		app-laptop/tp_smapi \
 		net-dialup/accel-ppp \
 		net-firewall/rtsp-conntrack \
@@ -55,9 +86,8 @@ RUN_ARGS_KERNEL_5_8_AMD64 = \
 		sys-power/acpi_call \
 		sys-power/bbswitch \
 		'
-RUN_ARGS_KERNEL_5_8_X86 = \
+RUN_ARGS_KERNEL_SECOND_X86 = \
 	-e POST_PKGS=' \
-		app-crypt/tpm-emulator \
 		app-laptop/tp_smapi \
 		net-dialup/accel-ppp \
 		net-firewall/rtsp-conntrack \
@@ -66,125 +96,18 @@ RUN_ARGS_KERNEL_5_8_X86 = \
 		sys-power/bbswitch \
 		'
 
-RUN_ARGS_VANILLA_KERNEL_5_8 = \
-	-e PKG='<sys-kernel/vanilla-kernel-5.9'
-RUN_ARGS_VANILLA_KERNEL_5_8_BIN = \
-	-e PKG='<sys-kernel/vanilla-kernel-bin-5.9'
-RUN_ARGS_GENTOO_KERNEL_5_8 = \
-	-e PKG='<sys-kernel/gentoo-kernel-5.9'
-RUN_ARGS_GENTOO_KERNEL_5_8_BIN = \
-	-e PKG='<sys-kernel/gentoo-kernel-bin-5.9'
+RUN_ARGS_VANILLA_KERNEL_SECOND = \
+	-e PKG='<sys-kernel/vanilla-kernel-$(KERNEL_SECOND_LT)'
+RUN_ARGS_VANILLA_KERNEL_SECOND_BIN = \
+	-e PKG='<sys-kernel/vanilla-kernel-bin-$(KERNEL_SECOND_LT)'
+RUN_ARGS_GENTOO_KERNEL_SECOND = \
+	-e PKG='<sys-kernel/gentoo-kernel-$(KERNEL_SECOND_LT)'
+RUN_ARGS_GENTOO_KERNEL_SECOND_BIN = \
+	-e PKG='<sys-kernel/gentoo-kernel-bin-$(KERNEL_SECOND_LT)'
 
 
-RUN_ARGS_KERNEL_5_7_AMD64 = \
+RUN_ARGS_KERNEL_LTS_AMD64 = \
 	-e POST_PKGS=' \
-		app-crypt/tpm-emulator \
-		app-laptop/tp_smapi \
-		net-dialup/accel-ppp \
-		net-firewall/rtsp-conntrack \
-		net-firewall/xtables-addons \
-		sys-fs/vhba \
-		sys-power/acpi_call \
-		sys-power/bbswitch \
-		'
-RUN_ARGS_KERNEL_5_7_X86 = \
-	-e POST_PKGS=' \
-		app-crypt/tpm-emulator \
-		app-laptop/tp_smapi \
-		net-dialup/accel-ppp \
-		net-firewall/rtsp-conntrack \
-		net-firewall/xtables-addons \
-		sys-fs/vhba \
-		sys-power/bbswitch \
-		'
-
-RUN_ARGS_VANILLA_KERNEL_5_7 = \
-	-e PKG='<sys-kernel/vanilla-kernel-5.8'
-RUN_ARGS_VANILLA_KERNEL_5_7_BIN = \
-	-e PKG='<sys-kernel/vanilla-kernel-bin-5.8'
-RUN_ARGS_GENTOO_KERNEL_5_7 = \
-	-e PKG='<sys-kernel/gentoo-kernel-5.8'
-RUN_ARGS_GENTOO_KERNEL_5_7_BIN = \
-	-e PKG='<sys-kernel/gentoo-kernel-bin-5.8'
-
-
-RUN_ARGS_KERNEL_5_6_AMD64 = \
-	-e POST_PKGS=' \
-		app-crypt/tpm-emulator \
-		app-laptop/tp_smapi \
-		net-dialup/accel-ppp \
-		net-firewall/rtsp-conntrack \
-		net-firewall/xtables-addons \
-		sys-fs/vhba \
-		sys-power/acpi_call \
-		sys-power/bbswitch \
-		x11-drivers/nvidia-drivers \
-		'
-RUN_ARGS_KERNEL_5_6_X86 = \
-	-e POST_PKGS=' \
-		app-crypt/tpm-emulator \
-		app-laptop/tp_smapi \
-		net-dialup/accel-ppp \
-		net-firewall/rtsp-conntrack \
-		net-firewall/xtables-addons \
-		sys-fs/vhba \
-		sys-power/bbswitch \
-		'
-
-RUN_ARGS_VANILLA_KERNEL_5_6 = \
-	-e PKG='<sys-kernel/vanilla-kernel-5.7'
-RUN_ARGS_VANILLA_KERNEL_5_6_BIN = \
-	-e PKG='<sys-kernel/vanilla-kernel-bin-5.7'
-RUN_ARGS_GENTOO_KERNEL_5_6 = \
-	-e PKG='<sys-kernel/gentoo-kernel-5.7'
-RUN_ARGS_GENTOO_KERNEL_5_6_BIN = \
-	-e PKG='<sys-kernel/gentoo-kernel-bin-5.7'
-
-
-RUN_ARGS_KERNEL_5_5_AMD64 = \
-	-e POST_PKGS=' \
-		app-crypt/tpm-emulator \
-		app-emulation/virtualbox-modules \
-		app-laptop/tp_smapi \
-		dev-util/sysdig-kmod \
-		media-video/v4l2loopback \
-		net-dialup/accel-ppp \
-		net-firewall/rtsp-conntrack \
-		net-firewall/xtables-addons \
-		net-misc/AQtion \
-		net-wireless/broadcom-sta \
-		sys-fs/vhba \
-		sys-power/acpi_call \
-		sys-power/bbswitch \
-		x11-drivers/nvidia-drivers \
-		'
-RUN_ARGS_KERNEL_5_5_X86 = \
-	-e POST_PKGS=' \
-		app-crypt/tpm-emulator \
-		app-laptop/tp_smapi \
-		dev-util/sysdig-kmod \
-		media-video/v4l2loopback \
-		net-dialup/accel-ppp \
-		net-firewall/rtsp-conntrack \
-		net-firewall/xtables-addons \
-		net-wireless/broadcom-sta \
-		sys-fs/vhba \
-		sys-power/bbswitch \
-		'
-
-RUN_ARGS_VANILLA_KERNEL_5_5 = \
-	-e PKG='<sys-kernel/vanilla-kernel-5.6'
-RUN_ARGS_VANILLA_KERNEL_5_5_BIN = \
-	-e PKG='<sys-kernel/vanilla-kernel-bin-5.6'
-RUN_ARGS_GENTOO_KERNEL_5_5 = \
-	-e PKG='<sys-kernel/gentoo-kernel-5.6'
-RUN_ARGS_GENTOO_KERNEL_5_5_BIN = \
-	-e PKG='<sys-kernel/gentoo-kernel-bin-5.6'
-
-
-RUN_ARGS_KERNEL_5_4_AMD64 = \
-	-e POST_PKGS=' \
-		app-crypt/tpm-emulator \
 		app-emulation/virtualbox-guest-additions \
 		app-emulation/virtualbox-modules \
 		app-laptop/tp_smapi \
@@ -192,7 +115,6 @@ RUN_ARGS_KERNEL_5_4_AMD64 = \
 		media-video/v4l2loopback \
 		net-dialup/accel-ppp \
 		net-firewall/rtsp-conntrack \
-		net-firewall/xtables-addons \
 		net-misc/AQtion \
 		net-wireless/broadcom-sta \
 		sys-fs/vhba \
@@ -201,86 +123,26 @@ RUN_ARGS_KERNEL_5_4_AMD64 = \
 		sys-power/bbswitch \
 		x11-drivers/nvidia-drivers \
 		'
-RUN_ARGS_KERNEL_5_4_X86 = \
+RUN_ARGS_KERNEL_LTS_X86 = \
 	-e POST_PKGS=' \
-		app-crypt/tpm-emulator \
 		app-laptop/tp_smapi \
 		media-video/v4l2loopback \
 		net-dialup/accel-ppp \
 		net-firewall/rtsp-conntrack \
-		net-firewall/xtables-addons \
 		net-wireless/broadcom-sta \
 		sys-fs/vhba \
 		sys-power/bbswitch \
 		x11-drivers/nvidia-drivers \
 		'
 
-RUN_ARGS_VANILLA_KERNEL_5_4 = \
-	-e PKG='<sys-kernel/vanilla-kernel-5.5'
-RUN_ARGS_VANILLA_KERNEL_5_4_BIN = \
-	-e PKG='<sys-kernel/vanilla-kernel-bin-5.5'
-RUN_ARGS_GENTOO_KERNEL_5_4 = \
-	-e PKG='<sys-kernel/gentoo-kernel-5.5'
-RUN_ARGS_GENTOO_KERNEL_5_4_BIN = \
-	-e PKG='<sys-kernel/gentoo-kernel-bin-5.5'
-
-
-RUN_ARGS_KERNEL_4_19_AMD64 = \
-	-e POST_PKGS=' \
-		app-crypt/tpm-emulator \
-		app-emulation/virtualbox-guest-additions \
-		app-emulation/virtualbox-modules \
-		app-laptop/tp_smapi \
-		dev-util/lttng-modules \
-		dev-util/sysdig-kmod \
-		media-video/v4l2loopback \
-		net-dialup/accel-ppp \
-		net-firewall/ipt_netflow \
-		net-firewall/rtsp-conntrack \
-		net-firewall/xtables-addons \
-		net-fs/openafs \
-		net-misc/AQtion \
-		net-wireless/broadcom-sta \
-		sci-libs/linux-gpib-modules \
-		sys-cluster/knem \
-		sys-fs/loop-aes \
-		sys-fs/vhba \
-		sys-fs/zfs-kmod \
-		sys-kernel/cryptodev \
-		sys-power/acpi_call \
-		sys-power/bbswitch \
-		x11-drivers/nvidia-drivers \
-		'
-RUN_ARGS_KERNEL_4_19_X86 = \
-	-e POST_PKGS=' \
-		app-crypt/tpm-emulator \
-		app-laptop/tp_smapi \
-		dev-util/lttng-modules \
-		dev-util/sysdig-kmod \
-		media-video/v4l2loopback \
-		net-dialup/accel-ppp \
-		net-firewall/ipt_netflow \
-		net-firewall/rtsp-conntrack \
-		net-firewall/xtables-addons \
-		net-fs/openafs \
-		net-wireless/broadcom-sta \
-		sci-libs/linux-gpib-modules \
-		sys-cluster/knem \
-		sys-fs/loop-aes \
-		sys-fs/vhba \
-		sys-kernel/cryptodev \
-		sys-power/bbswitch \
-		x11-drivers/nvidia-drivers \
-		'
-
-RUN_ARGS_VANILLA_KERNEL_4_19 = \
-	-e PKG='<sys-kernel/vanilla-kernel-5'
-RUN_ARGS_VANILLA_KERNEL_4_19_BIN = \
-	-e PKG='<sys-kernel/vanilla-kernel-bin-5'
-RUN_ARGS_GENTOO_KERNEL_4_19 = \
-	-e PKG='<sys-kernel/gentoo-kernel-5'
-RUN_ARGS_GENTOO_KERNEL_4_19_BIN = \
-	-e PKG='<sys-kernel/gentoo-kernel-bin-5'
+RUN_ARGS_VANILLA_KERNEL_LTS = \
+	-e PKG='<sys-kernel/vanilla-kernel-$(KERNEL_LTS_LT)'
+RUN_ARGS_VANILLA_KERNEL_LTS_BIN = \
+	-e PKG='<sys-kernel/vanilla-kernel-bin-$(KERNEL_LTS_LT)'
+RUN_ARGS_GENTOO_KERNEL_LTS = \
+	-e PKG='<sys-kernel/gentoo-kernel-$(KERNEL_LTS_LT)'
+RUN_ARGS_GENTOO_KERNEL_LTS_BIN = \
+	-e PKG='<sys-kernel/gentoo-kernel-bin-$(KERNEL_LTS_LT)'
 
 
 BINPKGROOT = ~/binpkg
@@ -304,14 +166,10 @@ build-deps: build-amd64-kernel-deps build-x86-kernel-deps
 
 build: build-amd64-pypy build-x86-pypy
 build: build-amd64-pypy3 build-x86-pypy3
-build: build-amd64-vanilla-kernel-5.8 build-x86-vanilla-kernel-5.8
-build: build-amd64-vanilla-kernel-5.7 build-x86-vanilla-kernel-5.7
-build: build-amd64-vanilla-kernel-5.6 build-x86-vanilla-kernel-5.6
-build: build-amd64-vanilla-kernel-5.4 build-x86-vanilla-kernel-5.4
-build: build-amd64-gentoo-kernel-5.8 build-x86-gentoo-kernel-5.8
-build: build-amd64-gentoo-kernel-5.7 build-x86-gentoo-kernel-5.7
-build: build-amd64-gentoo-kernel-5.6 build-x86-gentoo-kernel-5.6
-build: build-amd64-gentoo-kernel-5.4 build-x86-gentoo-kernel-5.4
+build: build-amd64-vanilla-kernel-second build-x86-vanilla-kernel-second
+build: build-amd64-vanilla-kernel-lts build-x86-vanilla-kernel-lts
+build: build-amd64-gentoo-kernel-second build-x86-gentoo-kernel-second
+build: build-amd64-gentoo-kernel-lts build-x86-gentoo-kernel-lts
 
 
 gentoo-x86-stable:
@@ -379,304 +237,154 @@ x86-pypy3-bin: build-x86-pypy3-bin
 	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_PYPY3_BIN) build-$@
 
 
-build-amd64-vanilla-kernel-5.8: build-amd64-kernel-deps local.diff
+build-amd64-vanilla-kernel-newest: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-vanilla-kernel-5.8: build-amd64-vanilla-kernel-5.8
-	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_5_8) \
-		$(RUN_ARGS_KERNEL_5_8_AMD64) build-$@
+amd64-vanilla-kernel-newest: build-amd64-vanilla-kernel-newest
+	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_NEWEST) \
+		$(RUN_ARGS_KERNEL_NEWEST_AMD64) build-$@
 
-build-x86-vanilla-kernel-5.8: build-x86-kernel-deps local.diff
+build-x86-vanilla-kernel-newest: build-x86-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-vanilla-kernel-5.8: build-x86-vanilla-kernel-5.8
-	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_5_8) \
-		$(RUN_ARGS_KERNEL_5_8_X86) build-$@
+x86-vanilla-kernel-newest: build-x86-vanilla-kernel-newest
+	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_NEWEST) \
+		$(RUN_ARGS_KERNEL_NEWEST_X86) build-$@
 
-build-amd64-vanilla-kernel-5.8-bin: build-amd64-kernel-deps local.diff
+build-amd64-vanilla-kernel-newest-bin: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-vanilla-kernel-5.8-bin: build-amd64-vanilla-kernel-5.8-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_BIN_5_8) \
-		$(RUN_ARGS_KERNEL_5_8_AMD64) build-$@
+amd64-vanilla-kernel-newest-bin: build-amd64-vanilla-kernel-newest-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_BIN_NEWEST) \
+		$(RUN_ARGS_KERNEL_NEWEST_AMD64) build-$@
 
-build-x86-vanilla-kernel-5.8-bin: build-x86-kernel-deps local.diff
+build-x86-vanilla-kernel-newest-bin: build-x86-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-vanilla-kernel-5.8-bin: build-x86-vanilla-kernel-5.8-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_BIN_5_8) \
-		$(RUN_ARGS_KERNEL_5_8_X86) build-$@
+x86-vanilla-kernel-newest-bin: build-x86-vanilla-kernel-newest-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_BIN_NEWEST) \
+		$(RUN_ARGS_KERNEL_NEWEST_X86) build-$@
 
 
-build-amd64-vanilla-kernel-5.7: build-amd64-kernel-deps local.diff
+build-amd64-vanilla-kernel-second: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-vanilla-kernel-5.7: build-amd64-vanilla-kernel-5.7
-	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_5_7) \
-		$(RUN_ARGS_KERNEL_5_7_AMD64) build-$@
+amd64-vanilla-kernel-second: build-amd64-vanilla-kernel-second
+	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_SECOND) \
+		$(RUN_ARGS_KERNEL_SECOND_AMD64) build-$@
 
-build-x86-vanilla-kernel-5.7: build-x86-kernel-deps local.diff
+build-x86-vanilla-kernel-second: build-x86-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-vanilla-kernel-5.7: build-x86-vanilla-kernel-5.7
-	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_5_7) \
-		$(RUN_ARGS_KERNEL_5_7_X86) build-$@
+x86-vanilla-kernel-second: build-x86-vanilla-kernel-second
+	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_SECOND) \
+		$(RUN_ARGS_KERNEL_SECOND_X86) build-$@
 
-build-amd64-vanilla-kernel-5.7-bin: build-amd64-kernel-deps local.diff
+build-amd64-vanilla-kernel-second-bin: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-vanilla-kernel-5.7-bin: build-amd64-vanilla-kernel-5.7-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_BIN_5_7) \
-		$(RUN_ARGS_KERNEL_5_7_AMD64) build-$@
+amd64-vanilla-kernel-second-bin: build-amd64-vanilla-kernel-second-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_BIN_SECOND) \
+		$(RUN_ARGS_KERNEL_SECOND_AMD64) build-$@
 
-build-x86-vanilla-kernel-5.7-bin: build-x86-kernel-deps local.diff
+build-x86-vanilla-kernel-second-bin: build-x86-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-vanilla-kernel-5.7-bin: build-x86-vanilla-kernel-5.7-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_BIN_5_7) \
-		$(RUN_ARGS_KERNEL_5_7_X86) build-$@
+x86-vanilla-kernel-second-bin: build-x86-vanilla-kernel-second-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_BIN_SECOND) \
+		$(RUN_ARGS_KERNEL_SECOND_X86) build-$@
 
 
-build-amd64-vanilla-kernel-5.6: build-amd64-kernel-deps local.diff
+build-amd64-vanilla-kernel-lts: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-vanilla-kernel-5.6: build-amd64-vanilla-kernel-5.6
-	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_5_6) \
-		$(RUN_ARGS_KERNEL_5_6_AMD64) build-$@
+amd64-vanilla-kernel-lts: build-amd64-vanilla-kernel-lts
+	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_LTS) \
+		$(RUN_ARGS_KERNEL_LTS_AMD64) build-$@
 
-build-x86-vanilla-kernel-5.6: build-x86-kernel-deps local.diff
+build-x86-vanilla-kernel-lts: build-x86-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-vanilla-kernel-5.6: build-x86-vanilla-kernel-5.6
-	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_5_6) \
-		$(RUN_ARGS_KERNEL_5_6_X86) build-$@
+x86-vanilla-kernel-lts: build-x86-vanilla-kernel-lts
+	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_LTS) \
+		$(RUN_ARGS_KERNEL_LTS_X86) build-$@
 
-build-amd64-vanilla-kernel-5.6-bin: build-amd64-kernel-deps local.diff
+build-amd64-vanilla-kernel-lts-bin: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-vanilla-kernel-5.6-bin: build-amd64-vanilla-kernel-5.6-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_BIN_5_6) \
-		$(RUN_ARGS_KERNEL_5_6_AMD64) build-$@
+amd64-vanilla-kernel-lts-bin: build-amd64-vanilla-kernel-lts-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_LTS_BIN) \
+		$(RUN_ARGS_KERNEL_LTS_AMD64) build-$@
 
-build-x86-vanilla-kernel-5.6-bin: build-x86-kernel-deps local.diff
+build-x86-vanilla-kernel-lts-bin: build-x86-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-vanilla-kernel-5.6-bin: build-x86-vanilla-kernel-5.6-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_BIN_5_6) \
-		$(RUN_ARGS_KERNEL_5_6_X86) build-$@
+x86-vanilla-kernel-lts-bin: build-x86-vanilla-kernel-lts-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_LTS_BIN) \
+		$(RUN_ARGS_KERNEL_LTS_X86) build-$@
 
 
-build-amd64-vanilla-kernel-5.5: build-amd64-kernel-deps local.diff
+build-amd64-gentoo-kernel-newest: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-vanilla-kernel-5.5: build-amd64-vanilla-kernel-5.5
-	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_5_5) \
-		$(RUN_ARGS_KERNEL_5_5_AMD64) build-$@
+amd64-gentoo-kernel-newest: build-amd64-gentoo-kernel-newest
+	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_NEWEST) \
+		$(RUN_ARGS_KERNEL_NEWEST_AMD64) build-$@
 
-build-x86-vanilla-kernel-5.5: build-x86-kernel-deps local.diff
+build-x86-gentoo-kernel-newest: build-x86-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-vanilla-kernel-5.5: build-x86-vanilla-kernel-5.5
-	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_5_5) \
-		$(RUN_ARGS_KERNEL_5_5_X86) build-$@
+x86-gentoo-kernel-newest: build-x86-gentoo-kernel-newest
+	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_NEWEST) \
+		$(RUN_ARGS_KERNEL_NEWEST_X86) build-$@
 
-build-amd64-vanilla-kernel-5.5-bin: build-amd64-kernel-deps local.diff
+build-amd64-gentoo-kernel-newest-bin: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-vanilla-kernel-5.5-bin: build-amd64-vanilla-kernel-5.5-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_BIN_5_5) \
-		$(RUN_ARGS_KERNEL_5_5_AMD64) build-$@
+amd64-gentoo-kernel-newest-bin: build-amd64-gentoo-kernel-newest-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_NEWEST_BIN) \
+		$(RUN_ARGS_KERNEL_NEWEST_AMD64) build-$@
 
-build-x86-vanilla-kernel-5.5-bin: build-x86-kernel-deps local.diff
+build-x86-gentoo-kernel-newest-bin: build-x86-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-vanilla-kernel-5.5-bin: build-x86-vanilla-kernel-5.5-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_BIN_5_5) \
-		$(RUN_ARGS_KERNEL_5_5_X86) build-$@
+x86-gentoo-kernel-newest-bin: build-x86-gentoo-kernel-newest-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_NEWEST_BIN) \
+		$(RUN_ARGS_KERNEL_NEWEST_X86) build-$@
 
 
-build-amd64-vanilla-kernel-5.4: build-amd64-kernel-deps local.diff
+build-amd64-gentoo-kernel-second: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-vanilla-kernel-5.4: build-amd64-vanilla-kernel-5.4
-	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_5_4) \
-		$(RUN_ARGS_KERNEL_5_4_AMD64) build-$@
+amd64-gentoo-kernel-second: build-amd64-gentoo-kernel-second
+	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_SECOND) \
+		$(RUN_ARGS_KERNEL_SECOND_AMD64) build-$@
 
-build-x86-vanilla-kernel-5.4: build-x86-kernel-deps local.diff
+build-x86-gentoo-kernel-second: build-x86-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-vanilla-kernel-5.4: build-x86-vanilla-kernel-5.4
-	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_5_4) \
-		$(RUN_ARGS_KERNEL_5_4_X86) build-$@
+x86-gentoo-kernel-second: build-x86-gentoo-kernel-second
+	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_SECOND) \
+		$(RUN_ARGS_KERNEL_SECOND_X86) build-$@
 
-build-amd64-vanilla-kernel-5.4-bin: build-amd64-kernel-deps local.diff
+build-amd64-gentoo-kernel-second-bin: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-vanilla-kernel-5.4-bin: build-amd64-vanilla-kernel-5.4-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_5_4_BIN) \
-		$(RUN_ARGS_KERNEL_5_4_AMD64) build-$@
+amd64-gentoo-kernel-second-bin: build-amd64-gentoo-kernel-second-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_SECOND_BIN) \
+		$(RUN_ARGS_KERNEL_SECOND_AMD64) build-$@
 
-build-x86-vanilla-kernel-5.4-bin: build-x86-kernel-deps local.diff
+build-x86-gentoo-kernel-second-bin: build-x86-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-vanilla-kernel-5.4-bin: build-x86-vanilla-kernel-5.4-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_5_4_BIN) \
-		$(RUN_ARGS_KERNEL_5_4_X86) build-$@
+x86-gentoo-kernel-second-bin: build-x86-gentoo-kernel-second-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_SECOND_BIN) \
+		$(RUN_ARGS_KERNEL_SECOND_X86) build-$@
 
 
-build-amd64-vanilla-kernel-4.19: build-amd64-kernel-deps local.diff
+build-amd64-gentoo-kernel-lts: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-vanilla-kernel-4.19: build-amd64-vanilla-kernel-4.19
-	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_4_19) \
-		$(RUN_ARGS_KERNEL_4_19_AMD64) build-$@
+amd64-gentoo-kernel-lts: build-amd64-gentoo-kernel-lts
+	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_LTS) \
+		$(RUN_ARGS_KERNEL_LTS_AMD64) build-$@
 
-build-x86-vanilla-kernel-4.19: build-x86-kernel-deps local.diff
+build-x86-gentoo-kernel-lts: build-x86-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-vanilla-kernel-4.19: build-x86-vanilla-kernel-4.19
-	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_VANILLA_KERNEL_4_19) \
-		$(RUN_ARGS_KERNEL_4_19_X86) build-$@
+x86-gentoo-kernel-lts: build-x86-gentoo-kernel-lts
+	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_LTS) \
+		$(RUN_ARGS_KERNEL_LTS_X86) build-$@
 
-build-amd64-vanilla-kernel-4.19-bin: build-amd64-kernel-deps local.diff
+build-amd64-gentoo-kernel-lts-bin: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-vanilla-kernel-4.19-bin: build-amd64-vanilla-kernel-4.19-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_4_19_BIN) \
-		$(RUN_ARGS_KERNEL_4_19_AMD64) build-$@
+amd64-gentoo-kernel-lts-bin: build-amd64-gentoo-kernel-lts-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_LTS_BIN) \
+		$(RUN_ARGS_KERNEL_LTS_AMD64) build-$@
 
-build-x86-vanilla-kernel-4.19-bin: build-x86-kernel-deps local.diff
+build-x86-gentoo-kernel-lts-bin: build-x86-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-vanilla-kernel-4.19-bin: build-x86-vanilla-kernel-4.19-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_VANILLA_KERNEL_4_19_BIN) \
-		$(RUN_ARGS_KERNEL_4_19_X86) build-$@
-
-
-build-amd64-gentoo-kernel-5.8: build-amd64-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-gentoo-kernel-5.8: build-amd64-gentoo-kernel-5.8
-	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_5_8) \
-		$(RUN_ARGS_KERNEL_5_8_AMD64) build-$@
-
-build-x86-gentoo-kernel-5.8: build-x86-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-gentoo-kernel-5.8: build-x86-gentoo-kernel-5.8
-	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_5_8) \
-		$(RUN_ARGS_KERNEL_5_8_X86) build-$@
-
-build-amd64-gentoo-kernel-5.8-bin: build-amd64-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-gentoo-kernel-5.8-bin: build-amd64-gentoo-kernel-5.8-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_5_8_BIN) \
-		$(RUN_ARGS_KERNEL_5_8_AMD64) build-$@
-
-build-x86-gentoo-kernel-5.8-bin: build-x86-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-gentoo-kernel-5.8-bin: build-x86-gentoo-kernel-5.8-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_5_8_BIN) \
-		$(RUN_ARGS_KERNEL_5_8_X86) build-$@
-
-
-build-amd64-gentoo-kernel-5.7: build-amd64-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-gentoo-kernel-5.7: build-amd64-gentoo-kernel-5.7
-	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_5_7) \
-		$(RUN_ARGS_KERNEL_5_7_AMD64) build-$@
-
-build-x86-gentoo-kernel-5.7: build-x86-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-gentoo-kernel-5.7: build-x86-gentoo-kernel-5.7
-	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_5_7) \
-		$(RUN_ARGS_KERNEL_5_7_X86) build-$@
-
-build-amd64-gentoo-kernel-5.7-bin: build-amd64-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-gentoo-kernel-5.7-bin: build-amd64-gentoo-kernel-5.7-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_5_7_BIN) \
-		$(RUN_ARGS_KERNEL_5_7_AMD64) build-$@
-
-build-x86-gentoo-kernel-5.7-bin: build-x86-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-gentoo-kernel-5.7-bin: build-x86-gentoo-kernel-5.7-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_5_7_BIN) \
-		$(RUN_ARGS_KERNEL_5_7_X86) build-$@
-
-
-build-amd64-gentoo-kernel-5.6: build-amd64-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-gentoo-kernel-5.6: build-amd64-gentoo-kernel-5.6
-	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_5_6) \
-		$(RUN_ARGS_KERNEL_5_6_AMD64) build-$@
-
-build-x86-gentoo-kernel-5.6: build-x86-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-gentoo-kernel-5.6: build-x86-gentoo-kernel-5.6
-	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_5_6) \
-		$(RUN_ARGS_KERNEL_5_6_X86) build-$@
-
-build-amd64-gentoo-kernel-5.6-bin: build-amd64-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-gentoo-kernel-5.6-bin: build-amd64-gentoo-kernel-5.6-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_5_6_BIN) \
-		$(RUN_ARGS_KERNEL_5_6_AMD64) build-$@
-
-build-x86-gentoo-kernel-5.6-bin: build-x86-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-gentoo-kernel-5.6-bin: build-x86-gentoo-kernel-5.6-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_5_6_BIN) \
-		$(RUN_ARGS_KERNEL_5_6_X86) build-$@
-
-
-build-amd64-gentoo-kernel-5.5: build-amd64-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-gentoo-kernel-5.5: build-amd64-gentoo-kernel-5.5
-	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_5_5) \
-		$(RUN_ARGS_KERNEL_5_5_AMD64) build-$@
-
-build-x86-gentoo-kernel-5.5: build-x86-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-gentoo-kernel-5.5: build-x86-gentoo-kernel-5.5
-	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_5_5) \
-		$(RUN_ARGS_KERNEL_5_5_X86) build-$@
-
-build-amd64-gentoo-kernel-5.5-bin: build-amd64-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-gentoo-kernel-5.5-bin: build-amd64-gentoo-kernel-5.5-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_5_5_BIN) \
-		$(RUN_ARGS_KERNEL_5_5_AMD64) build-$@
-
-build-x86-gentoo-kernel-5.5-bin: build-x86-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-gentoo-kernel-5.5-bin: build-x86-gentoo-kernel-5.5-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_5_5_BIN) \
-		$(RUN_ARGS_KERNEL_5_5_X86) build-$@
-
-
-build-amd64-gentoo-kernel-5.4: build-amd64-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-gentoo-kernel-5.4: build-amd64-gentoo-kernel-5.4
-	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_5_4) \
-		$(RUN_ARGS_KERNEL_5_4_AMD64) build-$@
-
-build-x86-gentoo-kernel-5.4: build-x86-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-gentoo-kernel-5.4: build-x86-gentoo-kernel-5.4
-	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_5_4) \
-		$(RUN_ARGS_KERNEL_5_4_X86) build-$@
-
-build-amd64-gentoo-kernel-5.4-bin: build-amd64-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-gentoo-kernel-5.4-bin: build-amd64-gentoo-kernel-5.4-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_5_4_BIN) \
-		$(RUN_ARGS_KERNEL_5_4_AMD64) build-$@
-
-build-x86-gentoo-kernel-5.4-bin: build-x86-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-gentoo-kernel-5.4-bin: build-x86-gentoo-kernel-5.4-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_5_4_BIN) \
-		$(RUN_ARGS_KERNEL_5_4_X86) build-$@
-
-
-build-amd64-gentoo-kernel-4.19: build-amd64-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-gentoo-kernel-4.19: build-amd64-gentoo-kernel-4.19
-	$(DOCKER) run $(BIN_ARGS_AMD64_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_4_19) \
-		$(RUN_ARGS_KERNEL_4_19_AMD64) build-$@
-
-build-x86-gentoo-kernel-4.19: build-x86-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-gentoo-kernel-4.19: build-x86-gentoo-kernel-4.19
-	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_4_19) \
-		$(RUN_ARGS_KERNEL_4_19_X86) build-$@
-
-build-amd64-gentoo-kernel-4.19-bin: build-amd64-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-amd64-gentoo-kernel-4.19-bin: build-amd64-gentoo-kernel-4.19-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_4_19_BIN) \
-		$(RUN_ARGS_KERNEL_4_19_AMD64) build-$@
-
-build-x86-gentoo-kernel-4.19-bin: build-x86-kernel-deps local.diff
-	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
-x86-gentoo-kernel-4.19-bin: build-x86-gentoo-kernel-4.19-bin
-	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_4_19_BIN) \
-		$(RUN_ARGS_KERNEL_4_19_X86) build-$@
+x86-gentoo-kernel-lts-bin: build-x86-gentoo-kernel-lts-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_LTS_BIN) \
+		$(RUN_ARGS_KERNEL_LTS_X86) build-$@
 
 
 prune:
