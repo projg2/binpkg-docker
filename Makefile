@@ -20,11 +20,7 @@ ARGS_PYPY_DEPS = \
 RUN_ARGS_PYPY2_COMMON = \
 	-e POST_PKGS='dev-python/pypy'
 RUN_ARGS_PYPY3_COMMON = \
-	-e POST_PKGS=' \
-		dev-python/pypy3 \
-		dev-python/setuptools \
-		dev-python/cryptography \
-		'
+	-e POST_PKGS='dev-python/pypy3'
 
 RUN_ARGS_PYPY = $(RUN_ARGS_PYPY2_COMMON) \
 	-e PKG=dev-python/pypy-exe
