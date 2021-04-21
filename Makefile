@@ -7,10 +7,10 @@ KERNEL_SECOND_LT = 5.11
 KERNEL_LTS_LT = 5.5
 
 ARGS_AMD64 = \
-	--build-arg BASE=gentoo/stage3-amd64-nomultilib \
+	--build-arg BASE=gentoo/stage3:amd64-nomultilib \
 	--build-arg CFLAGS='-march=x86-64 -mtune=generic -O2 -pipe'
 ARGS_X86 = \
-	--build-arg BASE=gentoo/stage3-x86 \
+	--build-arg BASE=gentoo/stage3:x86 \
 	--build-arg CFLAGS='-march=pentium-m -mtune=generic -O2 -pipe'
 
 
@@ -170,11 +170,11 @@ build: build-amd64-gentoo-kernel-lts build-x86-gentoo-kernel-lts
 
 gentoo-x86-stable:
 	$(DOCKER) build -f Dockerfile.base \
-		--build-arg BASE=gentoo/stage3-x86 -t mgorny/$@ .
+		--build-arg BASE=gentoo/stage3:x86 -t mgorny/$@ .
 
 gentoo-amd64-stable:
 	$(DOCKER) build -f Dockerfile.base \
-		--build-arg BASE=gentoo/stage3-amd64-nomultilib -t mgorny/$@ .
+		--build-arg BASE=gentoo/stage3:amd64-nomultilib -t mgorny/$@ .
 
 
 build-amd64-pypy-deps:
