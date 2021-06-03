@@ -40,7 +40,7 @@ ARGS_KERNEL_DEPS = \
 		dev-tcltk/expect \
 		sys-kernel/dracut \
 		net-misc/openssh \
-		dev-util/dwarves \
+		dev-util/pahole \
 		'
 
 
