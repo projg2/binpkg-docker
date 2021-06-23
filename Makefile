@@ -41,10 +41,12 @@ ARGS_KERNEL_DEPS = \
 		sys-kernel/dracut \
 		net-misc/openssh \
 		dev-util/pahole \
+		dev-lang/python:3.10 \
 		'
 
 
 RUN_ARGS_KERNEL_NEWEST_AMD64 = \
+	-e EPYTHON=python3.10 \
 	-e POST_PKGS=' \
 		app-laptop/tp_smapi \
 		net-dialup/accel-ppp \
@@ -54,6 +56,7 @@ RUN_ARGS_KERNEL_NEWEST_AMD64 = \
 		sys-power/bbswitch \
 		'
 RUN_ARGS_KERNEL_NEWEST_X86 = \
+	-e EPYTHON=python3.10 \
 	-e POST_PKGS=' \
 		app-laptop/tp_smapi \
 		net-dialup/accel-ppp \
@@ -73,6 +76,7 @@ RUN_ARGS_GENTOO_KERNEL_NEWEST_BIN = \
 
 
 RUN_ARGS_KERNEL_SECOND_AMD64 = \
+	-e EPYTHON=python3.10 \
 	-e POST_PKGS=' \
 		app-laptop/tp_smapi \
 		net-dialup/accel-ppp \
@@ -83,6 +87,7 @@ RUN_ARGS_KERNEL_SECOND_AMD64 = \
 		sys-power/bbswitch \
 		'
 RUN_ARGS_KERNEL_SECOND_X86 = \
+	-e EPYTHON=python3.10 \
 	-e POST_PKGS=' \
 		app-laptop/tp_smapi \
 		net-dialup/accel-ppp \
@@ -103,6 +108,7 @@ RUN_ARGS_GENTOO_KERNEL_SECOND_BIN = \
 
 
 RUN_ARGS_KERNEL_LTS_AMD64 = \
+	-e EPYTHON=python3.10 \
 	-e POST_PKGS=' \
 		app-emulation/virtualbox-guest-additions \
 		app-emulation/virtualbox-modules \
@@ -120,6 +126,7 @@ RUN_ARGS_KERNEL_LTS_AMD64 = \
 		x11-drivers/nvidia-drivers \
 		'
 RUN_ARGS_KERNEL_LTS_X86 = \
+	-e EPYTHON=python3.10 \
 	-e POST_PKGS=' \
 		app-laptop/tp_smapi \
 		media-video/v4l2loopback \
