@@ -2,7 +2,7 @@ DOCKER ?= docker
 BUILD_ARGS_DEPS = --pull
 BUILD_ARGS =
 
-KERNEL_NEWEST_LT = 5.13
+KERNEL_NEWEST_LT = 5.14
 KERNEL_SECOND_LT = 5.11
 KERNEL_LTS_LT = 5.5
 
@@ -15,7 +15,7 @@ ARGS_X86 = \
 
 
 ARGS_PYPY_DEPS = \
-	--build-arg DEPS='dev-python/pypy dev-python/pypy-exe-bin'
+	--build-arg DEPS='<dev-python/pypy-7.3.6_rc dev-python/pypy-exe-bin'
 
 RUN_ARGS_PYPY2_COMMON = \
 	-e POST_PKGS='dev-python/pypy'
@@ -135,7 +135,6 @@ RUN_ARGS_KERNEL_LTS_X86 = \
 		net-wireless/broadcom-sta \
 		sys-fs/vhba \
 		sys-power/bbswitch \
-		x11-drivers/nvidia-drivers \
 		'
 
 RUN_ARGS_VANILLA_KERNEL_LTS = \

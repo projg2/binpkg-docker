@@ -2,13 +2,13 @@
 app-emulation/qemu -aio -caps -filecaps -jpeg -ncurses -png -vhost-net -vnc -xattr
 
 # for pypy testing
-dev-python/setuptools PYTHON_TARGETS: pypy3
-dev-python/setuptools_scm PYTHON_TARGETS: pypy3
-dev-python/certifi PYTHON_TARGETS: pypy3
-dev-python/six PYTHON_TARGETS: pypy3
-virtual/python-ipaddress PYTHON_TARGETS: pypy3
-virtual/python-enum34 PYTHON_TARGETS: pypy3
-dev-python/cryptography PYTHON_TARGETS: pypy3
+#dev-python/setuptools PYTHON_TARGETS: pypy3
+#dev-python/setuptools_scm PYTHON_TARGETS: pypy3
+#dev-python/certifi PYTHON_TARGETS: pypy3
+#dev-python/six PYTHON_TARGETS: pypy3
+#virtual/python-ipaddress PYTHON_TARGETS: pypy3
+#virtual/python-enum34 PYTHON_TARGETS: pypy3
+#dev-python/cryptography PYTHON_TARGETS: pypy3
 
 # for kernel testing
 sys-kernel/gentoo-kernel test
