@@ -2,7 +2,7 @@ DOCKER ?= docker
 BUILD_ARGS_DEPS = --pull
 BUILD_ARGS =
 
-KERNEL_NEWEST_LT = 5.15
+KERNEL_NEWEST_LT = 5.16
 KERNEL_SECOND_LT = 5.11
 KERNEL_LTS_LT = 5.5
 
@@ -81,7 +81,6 @@ RUN_ARGS_KERNEL_SECOND_AMD64 = \
 		app-laptop/tp_smapi \
 		net-dialup/accel-ppp \
 		net-firewall/rtsp-conntrack \
-		net-firewall/xtables-addons \
 		sys-fs/vhba \
 		sys-power/acpi_call \
 		sys-power/bbswitch \
@@ -92,7 +91,6 @@ RUN_ARGS_KERNEL_SECOND_X86 = \
 		app-laptop/tp_smapi \
 		net-dialup/accel-ppp \
 		net-firewall/rtsp-conntrack \
-		net-firewall/xtables-addons \
 		sys-fs/vhba \
 		sys-power/bbswitch \
 		'
