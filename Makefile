@@ -12,6 +12,9 @@ ARGS_AMD64 = \
 ARGS_X86 = \
 	--build-arg BASE=gentoo/stage3:x86 \
 	--build-arg CFLAGS='-march=pentium-m -mtune=generic -O2 -pipe'
+ARGS_ARM64 = \
+	--build-arg BASE=gentoo/stage3:arm64 \
+	--build-arg CFLAGS='-mtune=generic -O2 -pipe'
 
 
 ARGS_PYPY_DEPS = \
@@ -64,6 +67,9 @@ RUN_ARGS_KERNEL_NEWEST_X86 = \
 		sys-fs/vhba \
 		sys-power/bbswitch \
 		'
+RUN_ARGS_KERNEL_NEWEST_ARM64 = \
+	-e EPYTHON=python3.10 \
+	-e POST_PKGS=''
 
 RUN_ARGS_VANILLA_KERNEL_NEWEST = \
 	-e PKG='<sys-kernel/vanilla-kernel-$(KERNEL_NEWEST_LT)'
@@ -94,6 +100,9 @@ RUN_ARGS_KERNEL_SECOND_X86 = \
 		sys-fs/vhba \
 		sys-power/bbswitch \
 		'
+RUN_ARGS_KERNEL_SECOND_ARM64 = \
+	-e EPYTHON=python3.10 \
+	-e POST_PKGS=''
 
 RUN_ARGS_VANILLA_KERNEL_SECOND = \
 	-e PKG='<sys-kernel/vanilla-kernel-$(KERNEL_SECOND_LT)'
@@ -134,6 +143,9 @@ RUN_ARGS_KERNEL_LTS_X86 = \
 		sys-fs/vhba \
 		sys-power/bbswitch \
 		'
+RUN_ARGS_KERNEL_LTS_ARM64 = \
+	-e EPYTHON=python3.10 \
+	-e POST_PKGS=''
 
 RUN_ARGS_VANILLA_KERNEL_LTS = \
 	-e PKG='<sys-kernel/vanilla-kernel-$(KERNEL_LTS_LT)'
@@ -157,19 +169,10 @@ BIN_ARGS_AMD64_KERNEL = $(BIN_ARGS_COMMON) \
 	-v $(BINPKGROOT)/amd64/kernel:/var/cache/binpkgs
 BIN_ARGS_X86_KERNEL = $(BIN_ARGS_COMMON) \
 	-v $(BINPKGROOT)/x86/kernel:/var/cache/binpkgs
+BIN_ARGS_ARM64_KERNEL = $(BIN_ARGS_COMMON) \
+	-v $(BINPKGROOT)/arm64/kernel:/var/cache/binpkgs
 # throwaway
 BIN_ARGS_BIN = $(BIN_ARGS_COMMON)
-
-
-build-deps: build-amd64-pypy-deps build-x86-pypy-deps
-build-deps: build-amd64-kernel-deps build-x86-kernel-deps
-
-build: build-amd64-pypy build-x86-pypy
-build: build-amd64-pypy3 build-x86-pypy3
-build: build-amd64-vanilla-kernel-second build-x86-vanilla-kernel-second
-build: build-amd64-vanilla-kernel-lts build-x86-vanilla-kernel-lts
-build: build-amd64-gentoo-kernel-second build-x86-gentoo-kernel-second
-build: build-amd64-gentoo-kernel-lts build-x86-gentoo-kernel-lts
 
 
 gentoo-x86-stable:
@@ -194,6 +197,9 @@ build-amd64-kernel-deps:
 build-x86-kernel-deps:
 	$(DOCKER) build -f Dockerfile.deps \
 		$(BUILD_ARGS_DEPS) $(ARGS_X86) $(ARGS_KERNEL_DEPS) -t $@ .
+build-arm64-kernel-deps:
+	$(DOCKER) build -f Dockerfile.deps \
+		$(BUILD_ARGS_DEPS) $(ARGS_ARM64) $(ARGS_KERNEL_DEPS) -t $@ .
 
 
 build-amd64-pypy: build-amd64-pypy-deps local.diff
@@ -324,6 +330,12 @@ x86-gentoo-kernel-newest: build-x86-gentoo-kernel-newest
 	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_NEWEST) \
 		$(RUN_ARGS_KERNEL_NEWEST_X86) build-$@
 
+build-arm64-gentoo-kernel-newest: build-arm64-kernel-deps local.diff
+	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
+arm64-gentoo-kernel-newest: build-arm64-gentoo-kernel-newest
+	$(DOCKER) run $(BIN_ARGS_ARM64_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_NEWEST) \
+		$(RUN_ARGS_KERNEL_NEWEST_ARM64) build-$@
+
 build-amd64-gentoo-kernel-newest-bin: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
 amd64-gentoo-kernel-newest-bin: build-amd64-gentoo-kernel-newest-bin
@@ -335,6 +347,12 @@ build-x86-gentoo-kernel-newest-bin: build-x86-kernel-deps local.diff
 x86-gentoo-kernel-newest-bin: build-x86-gentoo-kernel-newest-bin
 	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_NEWEST_BIN) \
 		$(RUN_ARGS_KERNEL_NEWEST_X86) build-$@
+
+build-arm64-gentoo-kernel-newest-bin: build-arm64-kernel-deps local.diff
+	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
+arm64-gentoo-kernel-newest-bin: build-arm64-gentoo-kernel-newest-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_NEWEST_BIN) \
+		$(RUN_ARGS_KERNEL_NEWEST_ARM64) build-$@
 
 
 build-amd64-gentoo-kernel-second: build-amd64-kernel-deps local.diff
@@ -349,6 +367,12 @@ x86-gentoo-kernel-second: build-x86-gentoo-kernel-second
 	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_SECOND) \
 		$(RUN_ARGS_KERNEL_SECOND_X86) build-$@
 
+build-arm64-gentoo-kernel-second: build-arm64-kernel-deps local.diff
+	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
+arm64-gentoo-kernel-second: build-arm64-gentoo-kernel-second
+	$(DOCKER) run $(BIN_ARGS_ARM64_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_SECOND) \
+		$(RUN_ARGS_KERNEL_SECOND_ARM64) build-$@
+
 build-amd64-gentoo-kernel-second-bin: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
 amd64-gentoo-kernel-second-bin: build-amd64-gentoo-kernel-second-bin
@@ -360,6 +384,12 @@ build-x86-gentoo-kernel-second-bin: build-x86-kernel-deps local.diff
 x86-gentoo-kernel-second-bin: build-x86-gentoo-kernel-second-bin
 	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_SECOND_BIN) \
 		$(RUN_ARGS_KERNEL_SECOND_X86) build-$@
+
+build-arm64-gentoo-kernel-second-bin: build-arm64-kernel-deps local.diff
+	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
+arm64-gentoo-kernel-second-bin: build-arm64-gentoo-kernel-second-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_SECOND_BIN) \
+		$(RUN_ARGS_KERNEL_SECOND_ARM64) build-$@
 
 
 build-amd64-gentoo-kernel-lts: build-amd64-kernel-deps local.diff
@@ -374,6 +404,12 @@ x86-gentoo-kernel-lts: build-x86-gentoo-kernel-lts
 	$(DOCKER) run $(BIN_ARGS_X86_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_LTS) \
 		$(RUN_ARGS_KERNEL_LTS_X86) build-$@
 
+build-arm64-gentoo-kernel-lts: build-arm64-kernel-deps local.diff
+	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
+arm64-gentoo-kernel-lts: build-arm64-gentoo-kernel-lts
+	$(DOCKER) run $(BIN_ARGS_ARM64_KERNEL) $(RUN_ARGS_GENTOO_KERNEL_LTS) \
+		$(RUN_ARGS_KERNEL_LTS_ARM64) build-$@
+
 build-amd64-gentoo-kernel-lts-bin: build-amd64-kernel-deps local.diff
 	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
 amd64-gentoo-kernel-lts-bin: build-amd64-gentoo-kernel-lts-bin
@@ -385,6 +421,12 @@ build-x86-gentoo-kernel-lts-bin: build-x86-kernel-deps local.diff
 x86-gentoo-kernel-lts-bin: build-x86-gentoo-kernel-lts-bin
 	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_LTS_BIN) \
 		$(RUN_ARGS_KERNEL_LTS_X86) build-$@
+
+build-arm64-gentoo-kernel-lts-bin: build-arm64-kernel-deps local.diff
+	$(DOCKER) build $(BUILD_ARGS) --build-arg BASE=$< -t $@ .
+arm64-gentoo-kernel-lts-bin: build-arm64-gentoo-kernel-lts-bin
+	$(DOCKER) run $(BIN_ARGS_BIN) $(RUN_ARGS_GENTOO_KERNEL_LTS_BIN) \
+		$(RUN_ARGS_KERNEL_LTS_ARM64) build-$@
 
 
 prune:
