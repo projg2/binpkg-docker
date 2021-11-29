@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+[[ -f localconfig.bash ]] && source localconfig.bash
+
 die() {
 	echo "${@}" >&2
 	exit 1
@@ -198,6 +200,11 @@ export_vars() {
 				--build-arg "CFLAGS=${cflags}"
 			)
 		fi
+	fi
+
+	local host_varname=DOCKER_HOST_${target_arch^^}
+	if [[ -v ${host_varname} ]]; then
+		export DOCKER_HOST=${!host_varname}
 	fi
 }
 
