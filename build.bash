@@ -29,6 +29,7 @@ export_vars() {
 		build-*-kernel-deps)
 			DOCKER_ARGS+=(
 				build
+				--label=mgorny-binpkg-docker
 				-f Dockerfile.deps
 				--build-arg DEPS='
 					virtual/libelf
@@ -51,6 +52,7 @@ export_vars() {
 			BASE_TARGET=build-${target_arch}-kernel-deps
 			DOCKER_ARGS+=(
 				build
+				--label=mgorny-binpkg-docker
 				--build-arg "BASE=${BASE_TARGET}"
 				-t "${target}" .
 			)
@@ -161,6 +163,13 @@ export_vars() {
 			binpkg=kernel
 			;;
 
+		prune)
+			return
+			;;
+
+		*-prune)
+			target_arch=${target%%-*}
+			;;
 
 		*)
 			die "Invalid target: ${target}"
@@ -208,8 +217,24 @@ export_vars() {
 	fi
 }
 
+do_prune() {
+	local arch
+	for arch in amd64 arm64 ppc64le x86; do
+		# to get DOCKER_HOST
+		export_vars "${arch}-prune"
+		"${DOCKER}" system prune -a -f --filter=label=mgorny-binpkg-docker
+	done
+}
+
 do_target() {
 	local target=${1}
+
+	case ${target} in
+		prune)
+			do_prune
+			return
+			;;
+	esac
 
 	export_vars "${target}"
 	if [[ -n ${BASE_TARGET} && " ${TARGETS_DONE[*]} " != *" ${BASE_TARGET} "* ]]; then
