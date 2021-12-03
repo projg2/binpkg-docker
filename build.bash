@@ -223,6 +223,7 @@ do_prune() {
 		# to get DOCKER_HOST
 		export_vars "${arch}-prune"
 		"${DOCKER}" system prune -a -f --filter=label=mgorny-binpkg-docker
+		"${DOCKER}" image prune -a -f
 	done
 }
 
