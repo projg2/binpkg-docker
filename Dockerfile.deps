@@ -10,7 +10,7 @@ RUN wget --progress=dot:mega -O - https://github.com/gentoo-mirror/gentoo/archiv
 ARG DEPS
 ARG CFLAGS
 
-COPY package.accept_keywords /etc/portage
+COPY package.accept_keywords /etc/portage/package.accept_keywords/mgorny-binpkg-docker
 COPY package.use /etc/portage/package.use/local
 RUN --mount=type=tmpfs,target=/var/tmp/portage \
  printf '\nCFLAGS="%s"\nCXXFLAGS="%s"\nBINPKG_COMPRESS="xz"\nBINPKG_COMPRESS_FLAGS="-9"\nFEATURES="${FEATURES} -sandbox -usersandbox -cgroup binpkg-multi-instance -binpkg-docompress -binpkg-dostrip"\nACCEPT_LICENSE="*"\nPKGDIR="/tmp/binpkg"\n' "${CFLAGS}" "${CFLAGS}" >> /etc/portage/make.conf \
