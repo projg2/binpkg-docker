@@ -186,6 +186,7 @@ export_vars() {
 		arm64)
 			;;
 		ppc64le)
+			stage=gentoo/stage3:ppc64le-openrc
 			cflags='-mcpu=power8 -mtune=power8 -O2 -pipe'
 			;;
 		x86)
