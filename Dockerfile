@@ -1,8 +1,11 @@
+# syntax=docker/dockerfile:1.3
+
 ARG BASE
 
 FROM ${BASE}
 
-CMD cp -a /var/cache/binpkgs /tmp/binpkg \
+CMD --mount=type=tmpfs,target=/var/tmp/portage \
+ cp -a /var/cache/binpkgs /tmp/binpkg \
  && FEATURES=test emerge -1vB ${PKG} \
  && emerge -1vk ${PKG} \
  && { [[ -z ${POST_PKGS} ]] || emerge -1vt --keep-going=y --jobs ${POST_PKGS}; } \

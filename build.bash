@@ -215,6 +215,9 @@ export_vars() {
 	if [[ -v ${host_varname} ]]; then
 		export DOCKER_HOST=${!host_varname}
 	fi
+
+	export DOCKER_BUILDKIT=1
+	export BUILDKIT_PROGRESS=plain
 }
 
 do_prune() {
