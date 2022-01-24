@@ -180,12 +180,13 @@ export_vars() {
 	local cflags='-mtune=generic -O2 -pipe'
 	case ${target_arch} in
 		amd64)
-			stage=gentoo/stage3:amd64-nomultilib
+			stage=gentoo/stage3:amd64-nomultilib-openrc
 			cflags="-march=x86-64 ${flags}"
 			;;
 		arm64)
 			;;
 		ppc64le)
+			stage=gentoo/stage3:${target_arch}-openrc
 			cflags='-mcpu=power8 -mtune=power8 -O2 -pipe'
 			;;
 		x86)
