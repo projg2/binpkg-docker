@@ -34,7 +34,7 @@ export_vars() {
 				--build-arg DEPS='
 					virtual/libelf
 					sys-devel/bc
-					app-emulation/qemu
+					=app-emulation/qemu-6.2.0
 					dev-tcltk/expect
 					sys-kernel/dracut
 					net-misc/openssh

@@ -13,6 +13,7 @@ sys-kernel/vanilla-kernel-bin
 virtual/dist-kernel
 virtual/pypy
 virtual/pypy3
+app-emulation/qemu
 
 # for pypy3 testing
 dev-python/setuptools
