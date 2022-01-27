@@ -160,7 +160,7 @@ export_vars() {
 				-e POST_PKGS="dev-python/${pkg}"
 			)
 
-			binpkg=kernel
+			binpkg=pypy
 			;;
 
 		prune)
