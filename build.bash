@@ -17,9 +17,10 @@ export_vars() {
 
 	local -A kernel_versions=(
 		# this is for <, so +1
-		[newest]=5.16
-		[lts]=5.11
-		[lts2]=5.5
+		[newest]=5.17
+		[lts]=5.16
+		[lts2]=5.11
+		[lts3]=5.5
 	)
 
 	DOCKER_ARGS=( ${DOCKER} )
@@ -66,7 +67,7 @@ export_vars() {
 			local post_pkgs
 
 			case ${target_arch}-${version} in
-				amd64-lts2)
+				amd64-lts3)
 					post_pkgs=(
 						app-emulation/virtualbox-guest-additions
 						app-emulation/virtualbox-modules
@@ -84,7 +85,7 @@ export_vars() {
 						x11-drivers/nvidia-drivers
 					)
 					;;
-				x86-lts2)
+				x86-lts3)
 					post_pkgs=(
 						app-laptop/tp_smapi
 						media-video/v4l2loopback
