@@ -40,7 +40,7 @@ export_vars() {
 					sys-kernel/dracut
 					net-misc/openssh
 					dev-util/pahole
-					dev-lang/python:3.10
+					dev-lang/python:3.11
 					'
 				-t "${target}" .
 			)
@@ -119,7 +119,7 @@ export_vars() {
 
 			DOCKER_ARGS+=(
 				run
-				-e EPYTHON=python3.10
+				-e EPYTHON=python3.11
 				-e PKG="<sys-kernel/${pkg}-${kernel_versions[${version}]}"
 				-e POST_PKGS="${post_pkgs[*]}"
 			)
