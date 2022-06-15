@@ -177,7 +177,7 @@ export_vars() {
 			;;
 	esac
 
-	local stage=gentoo/stage3:${target_arch}
+	local stage=gentoo/stage3:${target_arch}-openrc
 	local cflags='-mtune=generic -O2 -pipe'
 	case ${target_arch} in
 		amd64)
@@ -187,10 +187,10 @@ export_vars() {
 		arm64)
 			;;
 		ppc64le)
-			stage=gentoo/stage3:${target_arch}-openrc
 			cflags='-mcpu=power8 -mtune=power8 -O2 -pipe'
 			;;
 		x86)
+			stage=gentoo/stage3:i686-openrc
 			cflags="-march=pentium-m ${flags}"
 			;;
 		*)
