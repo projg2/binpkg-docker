@@ -42,6 +42,7 @@ export_vars() {
 					dev-util/pahole
 					dev-lang/python:3.11
 					'
+				--network host
 				-t "${target}" .
 			)
 			target_arch=${target#build-}
@@ -55,6 +56,7 @@ export_vars() {
 				build
 				--label=mgorny-binpkg-docker
 				--build-arg "BASE=${BASE_TARGET}"
+				--network host
 				-t "${target}" .
 			)
 			;;
@@ -122,6 +124,7 @@ export_vars() {
 				-e EPYTHON=python3.11
 				-e PKG="<sys-kernel/${pkg}-${kernel_versions[${version}]}"
 				-e POST_PKGS="${post_pkgs[*]}"
+				--network host
 			)
 
 			binpkg=kernel
@@ -135,6 +138,7 @@ export_vars() {
 					dev-python/pypy
 					dev-python/pypy-exe-bin
 					'
+				--network host
 				-t "${target}" .
 			)
 			target_arch=${target#build-}
@@ -147,6 +151,7 @@ export_vars() {
 			DOCKER_ARGS+=(
 				build
 				--build-arg "BASE=${BASE_TARGET}"
+				--network host
 				-t "${target}" .
 			)
 			;;
@@ -159,6 +164,7 @@ export_vars() {
 				run
 				-e PKG="dev-python/${pkg}-exe"
 				-e POST_PKGS="dev-python/${pkg}"
+				--network host
 			)
 
 			binpkg=pypy
