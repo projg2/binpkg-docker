@@ -39,7 +39,6 @@ export_vars() {
 					dev-tcltk/expect
 					sys-kernel/dracut
 					net-misc/openssh
-					dev-util/pahole
 					dev-lang/python:3.11
 					'
 				--network host
