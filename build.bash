@@ -26,6 +26,10 @@ export_vars() {
 	DOCKER_ARGS=( ${DOCKER} )
 	BASE_TARGET=
 
+	target_arch=${target#build-}
+	target_arch=${target_arch%%-*}
+	[[ ${target} == *-musl-* ]] && target_arch+=-musl
+
 	case ${target} in
 		build-*-kernel-deps)
 			DOCKER_ARGS+=(
@@ -44,12 +48,8 @@ export_vars() {
 				--network host
 				-t "${target}" .
 			)
-			target_arch=${target#build-}
-			target_arch=${target_arch%%-*}
 			;;
 		build-*-*-kernel-*)
-			target_arch=${target#build-}
-			target_arch=${target_arch%%-*}
 			BASE_TARGET=build-${target_arch}-kernel-deps
 			DOCKER_ARGS+=(
 				build
@@ -61,7 +61,6 @@ export_vars() {
 			;;
 		*-*-kernel-*)
 			BASE_TARGET=build-${target}
-			target_arch=${target%%-*}
 			local version=${target##*-}
 			local pkg=${target#*-}
 			pkg=${pkg%-*}
@@ -140,12 +139,8 @@ export_vars() {
 				--network host
 				-t "${target}" .
 			)
-			target_arch=${target#build-}
-			target_arch=${target_arch%%-*}
 			;;
 		build-*-pypy|build-*-pypy3)
-			target_arch=${target#build-}
-			target_arch=${target_arch%%-*}
 			BASE_TARGET=build-${target_arch}-pypy-deps
 			DOCKER_ARGS+=(
 				build
@@ -156,7 +151,6 @@ export_vars() {
 			;;
 		*-pypy|*-pypy3)
 			BASE_TARGET=build-${target}
-			target_arch=${target%%-*}
 			local pkg=${target##*-}
 
 			DOCKER_ARGS+=(
@@ -174,7 +168,7 @@ export_vars() {
 			;;
 
 		*-prune)
-			target_arch=${target%%-*}
+			target_arch=${target%-prune}
 			;;
 
 		*)
@@ -182,20 +176,37 @@ export_vars() {
 			;;
 	esac
 
-	local stage=gentoo/stage3:${target_arch}-openrc
 	local cflags='-mtune=generic -O2 -pipe'
+	local stage
 	case ${target_arch} in
 		amd64)
 			stage=gentoo/stage3:amd64-nomultilib-openrc
 			cflags="-march=x86-64 ${flags}"
 			;;
+		amd64-musl)
+			stage=gentoo/stage3:amd64-musl
+			cflags="-march=x86-64 ${flags}"
+			;;
 		arm64)
+			stage=gentoo/stage3:arm64-openrc
+			;;
+		arm64-musl)
+			stage=gentoo/stage3:arm64-musl
 			;;
 		ppc64le)
+			stage=gentoo/stage3:ppc64le-openrc
+			cflags='-mcpu=power8 -mtune=power8 -O2 -pipe'
+			;;
+		ppc64le-musl)
+			stage=gentoo/stage3:ppc64le-musl-hardened-openrc
 			cflags='-mcpu=power8 -mtune=power8 -O2 -pipe'
 			;;
 		x86)
 			stage=gentoo/stage3:i686-openrc
+			cflags="-march=pentium-m ${flags}"
+			;;
+		x86-musl)
+			stage=gentoo/stage3:i686-musl
 			cflags="-march=pentium-m ${flags}"
 			;;
 		*)
@@ -218,7 +229,8 @@ export_vars() {
 		fi
 	fi
 
-	local host_varname=DOCKER_HOST_${target_arch^^}
+	local docker_arch=${target_arch%-*}
+	local host_varname=DOCKER_HOST_${docker_arch^^}
 	if [[ -v ${host_varname} ]]; then
 		export DOCKER_HOST=${!host_varname}
 	fi
