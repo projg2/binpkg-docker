@@ -7,10 +7,11 @@ RUN wget --progress=dot:mega -O - https://github.com/gentoo-mirror/gentoo/archiv
 
 ARG DEPS
 ARG CFLAGS
+ARG LDFLAGS
 
 COPY package.accept_keywords /etc/portage
 COPY package.use /etc/portage/package.use/local
-RUN printf '\nCFLAGS="%s"\nCXXFLAGS="%s"\nBINPKG_COMPRESS="xz"\nBINPKG_COMPRESS_FLAGS="-9"\nFEATURES="${FEATURES} -sandbox -usersandbox -cgroup binpkg-multi-instance -binpkg-docompress -binpkg-dostrip"\nACCEPT_LICENSE="*"\nPKGDIR="/tmp/binpkg"\nBINPKG_FORMAT="gpkg"\n' "${CFLAGS}" "${CFLAGS}" >> /etc/portage/make.conf \
+RUN printf '\nCFLAGS="%s"\nCXXFLAGS="%s"\nLDFLAGS="%s"\nBINPKG_COMPRESS="xz"\nBINPKG_COMPRESS_FLAGS="-T1 -9"\nFEATURES="${FEATURES} -sandbox -usersandbox -cgroup binpkg-multi-instance -binpkg-docompress -binpkg-dostrip"\nACCEPT_LICENSE="*"\nPKGDIR="/tmp/binpkg"\nBINPKG_FORMAT="gpkg"\n' "${CFLAGS}" "${CFLAGS}" "${LDFLAGS}" >> /etc/portage/make.conf \
  && { [[ -z ${DEPS} ]] || emerge -1vt --jobs ${DEPS}; } \
  && emerge --info \
  && cat /etc/portage/make.conf

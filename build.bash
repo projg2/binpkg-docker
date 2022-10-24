@@ -177,6 +177,7 @@ export_vars() {
 	esac
 
 	local cflags='-mtune=generic -O2 -pipe'
+	local ldflags='-Wl,-O1 -Wl,--as-needed'
 	local stage
 	case ${target_arch} in
 		amd64)
@@ -214,6 +215,13 @@ export_vars() {
 			;;
 	esac
 
+	if [[ ${target_arch} == *-musl && ${target} == *pypy* ]]; then
+		# link to libgcc statically to avoid depending on sys-devel/gcc
+		# and use the same package on musl-clang stages
+		cflags+=" -static-libgcc"
+		ldflags+=" -static-libgcc"
+	fi
+
 	if [[ ${binpkg} ]]; then
 		DOCKER_ARGS+=(
 			-v "${DISTCACHE}:/var/cache/distfiles"
@@ -225,6 +233,7 @@ export_vars() {
 			DOCKER_ARGS+=(
 				--build-arg "BASE=${stage}"
 				--build-arg "CFLAGS=${cflags}"
+				--build-arg "LDFLAGS=${ldflags}"
 			)
 		fi
 	fi
