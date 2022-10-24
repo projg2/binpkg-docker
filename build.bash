@@ -17,7 +17,7 @@ export_vars() {
 
 	local -A kernel_versions=(
 		# this is for <, so +1
-		[newest]=5.20
+		[newest]=6.1
 		[lts]=5.16
 		[lts2]=5.11
 		[lts3]=5.5
