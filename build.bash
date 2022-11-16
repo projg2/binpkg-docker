@@ -155,12 +155,12 @@ export_vars() {
 			binpkg=pypy
 			;;
 
-		prune)
+		prune|rsync)
 			return
 			;;
 
-		*-prune)
-			target_arch=${target%-prune}
+		*-prune|*-rsync)
+			target_arch=${target%-*}
 			;;
 
 		*)
@@ -237,6 +237,22 @@ export_vars() {
 	fi
 }
 
+do_rsync() {
+	local arch
+	for arch in amd64 arm64 ppc64le x86; do
+		# to get DOCKER_HOST
+		unset DOCKER_HOST
+		export_vars "${arch}-rsync"
+		if [[ -n ${DOCKER_HOST} ]]; then
+			rsync -rv --progress --checksum \
+				"${DOCKER_HOST#ssh://}":binpkg/. ~/binpkg ||
+				die "rsync download failed"
+		fi
+	done
+	rsync -rv --progress ~/binpkg/. --delete --checksum \
+		dev.gentoo.org:public_html/binpkg/ || die "rsync upload failed"
+}
+
 do_prune() {
 	local arch
 	for arch in amd64 arm64 ppc64le x86; do
@@ -252,6 +268,10 @@ do_target() {
 	local target=${1}
 
 	case ${target} in
+		rsync)
+			do_rsync
+			return
+			;;
 		prune)
 			do_prune
 			return
