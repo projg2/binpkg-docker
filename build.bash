@@ -241,6 +241,7 @@ do_prune() {
 	local arch
 	for arch in amd64 arm64 ppc64le x86; do
 		# to get DOCKER_HOST
+		unset DOCKER_HOST
 		export_vars "${arch}-prune"
 		"${DOCKER}" system prune -a -f --filter=label=mgorny-binpkg-docker
 		"${DOCKER}" image prune -a -f
