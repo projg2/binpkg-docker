@@ -74,7 +74,6 @@ export_vars() {
 						sys-fs/zfs-kmod
 						sys-power/acpi_call
 						sys-power/bbswitch
-						x11-drivers/nvidia-drivers
 					)
 					;;
 				x86-5.4)
