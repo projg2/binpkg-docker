@@ -36,6 +36,7 @@ export_vars() {
 					sys-kernel/dracut
 					net-misc/openssh
 					dev-lang/python:3.11
+					dev-util/cmake
 					'
 				--network host
 				-t "${target}" .
