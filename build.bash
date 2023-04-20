@@ -244,12 +244,12 @@ do_rsync() {
 		unset DOCKER_HOST
 		export_vars "${arch}-rsync"
 		if [[ -n ${DOCKER_HOST} ]]; then
-			rsync -rv --progress --checksum \
+			rsync -rv --partial --progress --checksum \
 				"${DOCKER_HOST#ssh://}":binpkg/. ~/binpkg ||
 				die "rsync download failed"
 		fi
 	done
-	rsync -rv --progress ~/binpkg/. --delete --checksum \
+	rsync -rv --partial --progress ~/binpkg/. --delete --checksum \
 		dev.gentoo.org:public_html/binpkg/ || die "rsync upload failed"
 }
 
