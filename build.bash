@@ -155,11 +155,11 @@ export_vars() {
 			binpkg=pypy
 			;;
 
-		prune|rsync)
+		prune|rsync|status)
 			return
 			;;
 
-		*-prune|*-rsync)
+		*-prune|*-rsync|*-status)
 			target_arch=${target%-*}
 			;;
 
@@ -264,6 +264,16 @@ do_prune() {
 	done
 }
 
+do_status() {
+	local arch
+	for arch in amd64 arm64 ppc64le x86; do
+		# to get DOCKER_HOST
+		unset DOCKER_HOST
+		export_vars "${arch}-status"
+		"${DOCKER}" container ls -a --filter=label=mgorny-binpkg-docker
+	done
+}
+
 do_target() {
 	local target=${1}
 
@@ -274,6 +284,10 @@ do_target() {
 			;;
 		prune)
 			do_prune
+			return
+			;;
+		status)
+			do_status
 			return
 			;;
 	esac
