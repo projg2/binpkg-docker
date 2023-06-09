@@ -132,7 +132,7 @@ export_vars() {
 				-t "${target}" .
 			)
 			;;
-		build-*-pypy|build-*-pypy3)
+		build-*-pypy|build-*-pypy3_*)
 			BASE_TARGET=build-${target_arch}-pypy-deps
 			DOCKER_ARGS+=(
 				build
@@ -141,7 +141,7 @@ export_vars() {
 				-t "${target}" .
 			)
 			;;
-		*-pypy|*-pypy3)
+		*-pypy|*-pypy3_*)
 			BASE_TARGET=build-${target}
 			local pkg=${target##*-}
 
