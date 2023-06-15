@@ -35,7 +35,7 @@ export_vars() {
 					dev-tcltk/expect
 					sys-kernel/dracut
 					net-misc/openssh
-					dev-lang/python:3.11
+					dev-lang/python:3.12
 					dev-util/cmake
 					'
 				--network host
@@ -111,7 +111,7 @@ export_vars() {
 
 			DOCKER_ARGS+=(
 				run
-				-e EPYTHON=python3.11
+				-e EPYTHON=python3.12
 				-e PKG="<sys-kernel/${pkg}-${version}.9999"
 				-e POST_PKGS="${post_pkgs[*]}"
 				--network host
