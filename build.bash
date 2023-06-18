@@ -155,11 +155,11 @@ export_vars() {
 			binpkg=pypy
 			;;
 
-		prune|rsync|status)
+		prune|prune-all|rsync|status)
 			return
 			;;
 
-		*-prune|*-rsync|*-status)
+		*-prune|*-prune-all|*-rsync|*-status)
 			target_arch=${target%-*}
 			;;
 
@@ -259,7 +259,7 @@ do_prune() {
 		# to get DOCKER_HOST
 		unset DOCKER_HOST
 		export_vars "${arch}-prune"
-		"${DOCKER}" system prune -a -f --filter=label=mgorny-binpkg-docker
+		"${DOCKER}" system prune -a -f "${@}"
 		"${DOCKER}" image prune -a -f
 	done
 }
@@ -283,6 +283,10 @@ do_target() {
 			return
 			;;
 		prune)
+			do_prune --filter=label=mgorny-binpkg-docker
+			return
+			;;
+		prune-all)
 			do_prune
 			return
 			;;
