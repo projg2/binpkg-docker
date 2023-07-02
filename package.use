@@ -11,9 +11,9 @@ app-emulation/qemu -aio -caps -filecaps -jpeg -ncurses -png -vhost-net -vnc -xat
 #dev-python/cryptography PYTHON_TARGETS: pypy3
 
 # for kernel testing
-sys-kernel/gentoo-kernel test
+sys-kernel/gentoo-kernel test -strip
 sys-kernel/gentoo-kernel-bin test
-sys-kernel/vanilla-kernel test
+sys-kernel/vanilla-kernel test -strip
 sys-kernel/vanilla-kernel-bin test
 app-crypt/tpm-emulator modules
 dev-util/sysdig modules
