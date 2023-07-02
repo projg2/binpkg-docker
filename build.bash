@@ -67,7 +67,6 @@ export_vars() {
 						app-laptop/tp_smapi
 						dev-util/sysdig-kmod
 						media-video/v4l2loopback
-						net-dialup/accel-ppp
 						net-firewall/rtsp-conntrack
 						net-misc/AQtion
 						net-wireless/broadcom-sta
@@ -81,7 +80,6 @@ export_vars() {
 					post_pkgs=(
 						app-laptop/tp_smapi
 						media-video/v4l2loopback
-						net-dialup/accel-ppp
 						net-firewall/rtsp-conntrack
 						net-wireless/broadcom-sta
 						sys-fs/vhba
@@ -91,7 +89,6 @@ export_vars() {
 				amd64-*)
 					post_pkgs=(
 						app-laptop/tp_smapi
-						net-dialup/accel-ppp
 						net-firewall/rtsp-conntrack
 						sys-fs/vhba
 						sys-power/acpi_call
@@ -101,7 +98,6 @@ export_vars() {
 				x86-*)
 					post_pkgs=(
 						app-laptop/tp_smapi
-						net-dialup/accel-ppp
 						net-firewall/rtsp-conntrack
 						sys-fs/vhba
 						sys-power/bbswitch
