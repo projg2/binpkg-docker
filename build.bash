@@ -64,8 +64,6 @@ export_vars() {
 					post_pkgs=(
 						app-emulation/virtualbox-guest-additions
 						app-emulation/virtualbox-modules
-						app-laptop/tp_smapi
-						dev-util/sysdig-kmod
 						media-video/v4l2loopback
 						net-firewall/rtsp-conntrack
 						net-misc/AQtion
@@ -78,7 +76,6 @@ export_vars() {
 					;;
 				x86-5.4)
 					post_pkgs=(
-						app-laptop/tp_smapi
 						media-video/v4l2loopback
 						net-firewall/rtsp-conntrack
 						net-wireless/broadcom-sta
@@ -88,7 +85,6 @@ export_vars() {
 					;;
 				amd64-*)
 					post_pkgs=(
-						app-laptop/tp_smapi
 						net-firewall/rtsp-conntrack
 						sys-fs/vhba
 						sys-power/acpi_call
@@ -97,7 +93,6 @@ export_vars() {
 					;;
 				x86-*)
 					post_pkgs=(
-						app-laptop/tp_smapi
 						net-firewall/rtsp-conntrack
 						sys-fs/vhba
 						sys-power/bbswitch
