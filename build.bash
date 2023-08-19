@@ -32,6 +32,7 @@ export_vars() {
 					virtual/libelf
 					sys-devel/bc
 					app-emulation/qemu
+					dev-libs/openssl
 					dev-tcltk/expect
 					sys-kernel/dracut
 					net-misc/openssh

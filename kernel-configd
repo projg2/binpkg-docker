@@ -1,0 +1,3 @@
+## Leave this up to the user, can be enabled with
+## module.sig_enforce=1 or by enabling secureboot.
+# CONFIG_MODULE_SIG_FORCE is not set
