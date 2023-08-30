@@ -38,6 +38,7 @@ export_vars() {
 					net-misc/openssh
 					dev-lang/python:3.12
 					dev-util/cmake
+					app-crypt/sbsigntools
 					'
 				--network host
 				-t "${target}" .
