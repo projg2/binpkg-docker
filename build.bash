@@ -24,11 +24,16 @@ export_vars() {
 
 	case ${target} in
 		build-*-kernel-deps)
+			local sb_dep=
+			if [[ ${target_arch} != ppc64* ]]; then
+				sb_dep='app-crypt/sbsigntools'
+			fi
+
 			DOCKER_ARGS+=(
 				build
 				--label=mgorny-binpkg-docker
 				-f Dockerfile.deps
-				--build-arg DEPS='
+				--build-arg DEPS="
 					virtual/libelf
 					sys-devel/bc
 					app-emulation/qemu
@@ -38,8 +43,8 @@ export_vars() {
 					net-misc/openssh
 					dev-lang/python:3.12
 					dev-util/cmake
-					app-crypt/sbsigntools
-					'
+					${sb_dep}
+				"
 				--network host
 				-t "${target}" .
 			)
