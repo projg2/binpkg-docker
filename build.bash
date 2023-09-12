@@ -43,6 +43,7 @@ export_vars() {
 					net-misc/openssh
 					dev-lang/python:3.12
 					dev-util/cmake
+					dev-util/pahole
 					${sb_dep}
 				"
 				--network host
