@@ -1,3 +1,12 @@
 ## Leave this up to the user, can be enabled with
 ## module.sig_enforce=1 or by enabling secureboot.
 # CONFIG_MODULE_SIG_FORCE is not set
+
+## Leave this up to run-time as well. Implied when
+## secure boot or lockdown is enabled.
+# CONFIG_KEXEC_SIG_FORCE is not set
+
+## Leave this up to secure boot status at run-time.
+## Can be enabled with lockdown=integrity.
+# CONFIG_LOCK_DOWN_KERNEL_FORCE_INTEGRITY is not set
+CONFIG_LOCK_DOWN_KERNEL_FORCE_NONE=y
