@@ -74,7 +74,6 @@ export_vars() {
 						media-video/v4l2loopback
 						net-firewall/rtsp-conntrack
 						net-misc/AQtion
-						net-wireless/broadcom-sta
 						sys-fs/vhba
 						sys-fs/zfs-kmod
 						sys-power/acpi_call
@@ -85,7 +84,6 @@ export_vars() {
 					post_pkgs=(
 						media-video/v4l2loopback
 						net-firewall/rtsp-conntrack
-						net-wireless/broadcom-sta
 						sys-fs/vhba
 						sys-power/bbswitch
 					)
