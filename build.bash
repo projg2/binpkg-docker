@@ -119,6 +119,7 @@ export_vars() {
 		build-*-pypy-deps)
 			DOCKER_ARGS+=(
 				build
+				--label=mgorny-binpkg-docker
 				-f Dockerfile.deps
 				--build-arg DEPS='
 					dev-python/pypy
@@ -132,6 +133,7 @@ export_vars() {
 			BASE_TARGET=build-${target_arch}-pypy-deps
 			DOCKER_ARGS+=(
 				build
+				--label=mgorny-binpkg-docker
 				--build-arg "BASE=${BASE_TARGET}"
 				--network host
 				-t "${target}" .
