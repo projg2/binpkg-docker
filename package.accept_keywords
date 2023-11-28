@@ -12,13 +12,22 @@ dev-python/pypy3_9-exe-bin **
 dev-python/pypy3_10 **
 dev-python/pypy3_10-exe **
 dev-python/pypy3_10-exe-bin **
+sys-firmware/intel-microcode
 sys-kernel/dracut
 sys-kernel/gentoo-kernel
 sys-kernel/gentoo-kernel-bin
+sys-kernel/linux-firmware
 sys-kernel/vanilla-kernel
 sys-kernel/vanilla-kernel-bin
 virtual/dist-kernel
 app-emulation/qemu
+
+# initramfs deps
+dev-libs/opensc
+sys-apps/fwupd
+sys-block/nbd
+dev-libs/libjcat
+sys-libs/libapparmor
 
 # for pypy3 testing
 dev-python/setuptools
@@ -30,8 +39,10 @@ virtual/python-enum34
 dev-python/cryptography
 
 # for kernel testing
+app-crypt/gnupg
 dev-util/pahole
 sys-apps/debianutils
+sys-apps/systemd
 sys-kernel/installkernel-gentoo
 dev-libs/libb64
 net-libs/grpc
@@ -51,10 +62,12 @@ net-firewall/xtables-addons
 net-fs/openafs
 net-misc/AQtion
 net-misc/ena-driver
+net-misc/networkmanager
 net-misc/openvswitch
 net-vpn/wireguard-modules
 net-wireless/broadcom-sta
 sci-libs/linux-gpib-modules
+sys-apps/dbus
 sys-cluster/knem
 sys-fs/loop-aes
 sys-fs/vhba
