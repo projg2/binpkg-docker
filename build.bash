@@ -26,10 +26,132 @@ export_vars() {
 
 	case ${target} in
 		build-*-kernel-deps)
-			local sb_dep=
-			if [[ ${target_arch} != ppc64* ]]; then
-				sb_dep='app-crypt/sbsigntools'
-			fi
+			local deps='
+				app-emulation/qemu
+				dev-lang/python:3.12
+				dev-libs/openssl
+				dev-tcltk/expect
+				dev-util/cmake
+				net-misc/openssh
+				sys-devel/bc
+				sys-kernel/dracut
+				sys-kernel/installkernel-gentoo
+				virtual/libelf
+			'
+			case ${target_arch} in
+				amd64|x86)
+					deps+='
+						sys-firmware/intel-microcode
+					'
+					;&
+				amd64|arm64|x86)
+					deps+='
+						app-crypt/sbsigntools
+						app-alternatives/awk
+						app-alternatives/gzip
+						app-alternatives/sh
+						app-arch/bzip2
+						app-arch/gzip
+						app-arch/lz4
+						app-arch/xz-utils
+						app-arch/zstd
+						app-crypt/argon2
+						app-crypt/gnupg
+						app-crypt/p11-kit
+						app-crypt/tpm2-tools
+						app-crypt/tpm2-tss
+						app-misc/ddcutil
+						app-misc/jq
+						app-shells/bash
+						dev-db/sqlite
+						dev-libs/cyrus-sasl
+						dev-libs/expat
+						dev-libs/glib
+						dev-libs/hidapi
+						dev-libs/icu
+						dev-libs/json-c
+						dev-libs/libaio
+						dev-libs/libassuan
+						dev-libs/libevent
+						dev-libs/libffi
+						dev-libs/libgcrypt
+						dev-libs/libgpg-error
+						dev-libs/libp11
+						dev-libs/libpcre2
+						dev-libs/libtasn1
+						dev-libs/libunistring
+						dev-libs/libusb
+						dev-libs/lzo
+						dev-libs/npth
+						dev-libs/nss
+						dev-libs/oniguruma
+						dev-libs/opensc
+						dev-libs/userspace-rcu
+						media-libs/libmtp
+						media-libs/libv4l
+						net-dns/c-ares
+						net-dns/libidn2
+						net-fs/cifs-utils
+						net-fs/nfs-utils
+						net-fs/samba
+						net-libs/libmnl
+						net-libs/libndp
+						net-libs/libtirpc
+						net-libs/nghttp2
+						net-misc/curl
+						net-misc/dhcp
+						net-misc/networkmanager
+						net-nds/openldap
+						net-wireless/bluez
+						net-wireless/iwd
+						sys-apps/acl
+						sys-apps/attr
+						sys-apps/baselayout
+						sys-apps/coreutils
+						sys-apps/dbus
+						sys-apps/fwupd
+						sys-apps/gawk
+						sys-apps/hwdata
+						sys-apps/iproute2
+						sys-apps/kbd
+						sys-apps/keyutils
+						sys-apps/kmod
+						sys-apps/less
+						sys-apps/nvme-cli
+						sys-apps/pcsc-lite
+						sys-apps/rng-tools
+						sys-apps/sed
+						sys-apps/shadow
+						sys-apps/systemd
+						sys-apps/util-linux
+						sys-auth/polkit
+						sys-block/nbd
+						sys-devel/gcc
+						sys-fs/btrfs-progs
+						sys-fs/cryptsetup
+						sys-fs/dmraid
+						sys-fs/dosfstools
+						sys-fs/e2fsprogs
+						sys-fs/lvm2
+						sys-fs/mdadm
+						sys-fs/multipath-tools
+						sys-fs/xfsprogs
+						sys-kernel/linux-firmware
+						sys-libs/glibc
+						sys-libs/libapparmor
+						sys-libs/libcap
+						sys-libs/libcap-ng
+						sys-libs/libnvme
+						sys-libs/libseccomp
+						sys-libs/libxcrypt
+						sys-libs/ncurses
+						sys-libs/pam
+						sys-libs/readline
+						sys-libs/zlib
+						sys-process/procps
+					'
+					;;
+			esac
 
 			# we need systemd for initramfs
 			rc=systemd
@@ -38,18 +160,7 @@ export_vars() {
 				build
 				--label=mgorny-binpkg-docker
 				-f Dockerfile.deps
-				--build-arg DOCKER_DEPS="
-					virtual/libelf
-					sys-devel/bc
-					app-emulation/qemu
-					dev-libs/openssl
-					dev-tcltk/expect
-					sys-kernel/dracut
-					net-misc/openssh
-					dev-lang/python:3.12
-					dev-util/cmake
-					${sb_dep}
-				"
+				--build-arg DOCKER_DEPS="${deps}"
 				--network host
 				-t "${target}" .
 			)
