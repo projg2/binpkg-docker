@@ -1,0 +1,5 @@
+ARG BASE
+
+FROM ${BASE}
+
+CMD rsync -vr /tmp/binpkg/. /var/cache/binpkgs/.

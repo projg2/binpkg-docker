@@ -14,6 +14,7 @@ export_vars() {
 	: ${DOCKER:=docker}
 	: ${BINPKGROOT=~/binpkg}
 	: ${DISTCACHE=~/distfiles}
+	: ${BINPKGCACHE=~/binpkg-cache}
 
 	DOCKER_ARGS=( ${DOCKER} )
 	BASE_TARGET=
@@ -49,6 +50,17 @@ export_vars() {
 				-t "${target}" .
 			)
 			;;
+		build-*-kernel-sync)
+			BASE_TARGET=build-${target_arch}-kernel-deps
+			DOCKER_ARGS+=(
+				build
+				-f Dockerfile.binpkg-sync
+				--label=mgorny-binpkg-docker
+				--build-arg "BASE=${BASE_TARGET}"
+				--network host
+				-t "${target}" .
+			)
+			;;
 		build-*-*-kernel-*)
 			BASE_TARGET=build-${target_arch}-kernel-deps
 			DOCKER_ARGS+=(
@@ -57,6 +69,15 @@ export_vars() {
 				--build-arg "BASE=${BASE_TARGET}"
 				--network host
 				-t "${target}" .
+			)
+			;;
+		*-kernel-sync)
+			BASE_TARGET=build-${target}
+			DOCKER_ARGS+=(
+				run
+				--network host
+				-v "${BINPKGCACHE}/${target_arch}:/var/cache/binpkgs"
+				"${BASE_TARGET}"
 			)
 			;;
 		*-*-kernel-*)
