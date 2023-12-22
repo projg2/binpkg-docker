@@ -10,6 +10,7 @@ die() {
 export_vars() {
 	local target=${1}
 	local target_arch binpkg
+	local rc=openrc
 
 	: ${DOCKER:=docker}
 	: ${BINPKGROOT=~/binpkg}
@@ -29,6 +30,9 @@ export_vars() {
 			if [[ ${target_arch} != ppc64* ]]; then
 				sb_dep='app-crypt/sbsigntools'
 			fi
+
+			# we need systemd for initramfs
+			rc=systemd
 
 			DOCKER_ARGS+=(
 				build
@@ -181,7 +185,7 @@ export_vars() {
 	local stage
 	case ${target_arch} in
 		amd64)
-			stage=gentoo/stage3:amd64-nomultilib-openrc
+			stage=gentoo/stage3:amd64-nomultilib-${rc}
 			cflags="-march=x86-64 ${flags}"
 			;;
 		amd64-musl)
@@ -189,13 +193,13 @@ export_vars() {
 			cflags="-march=x86-64 ${flags}"
 			;;
 		arm64)
-			stage=gentoo/stage3:arm64-openrc
+			stage=gentoo/stage3:arm64-${rc}
 			;;
 		arm64-musl)
 			stage=gentoo/stage3:arm64-musl
 			;;
 		ppc64le)
-			stage=gentoo/stage3:ppc64le-openrc
+			stage=gentoo/stage3:ppc64le-${rc}
 			cflags='-mcpu=power8 -mtune=power8 -O2 -pipe'
 			;;
 		ppc64le-musl)
@@ -203,7 +207,7 @@ export_vars() {
 			cflags='-mcpu=power8 -mtune=power8 -O2 -pipe'
 			;;
 		x86)
-			stage=gentoo/stage3:i686-openrc
+			stage=gentoo/stage3:i686-${rc}
 			cflags="-march=pentium-m ${flags}"
 			;;
 		x86-musl)
