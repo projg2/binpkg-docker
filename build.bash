@@ -34,7 +34,7 @@ export_vars() {
 				build
 				--label=mgorny-binpkg-docker
 				-f Dockerfile.deps
-				--build-arg DEPS="
+				--build-arg DOCKER_DEPS="
 					virtual/libelf
 					sys-devel/bc
 					app-emulation/qemu
@@ -131,7 +131,7 @@ export_vars() {
 				build
 				--label=mgorny-binpkg-docker
 				-f Dockerfile.deps
-				--build-arg DEPS='
+				--build-arg DOCKER_DEPS='
 					dev-python/pypy
 					dev-python/pypy-exe-bin
 					'
