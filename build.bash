@@ -50,17 +50,6 @@ export_vars() {
 				-t "${target}" .
 			)
 			;;
-		build-*-kernel-sync)
-			BASE_TARGET=build-${target_arch}-kernel-deps
-			DOCKER_ARGS+=(
-				build
-				-f Dockerfile.binpkg-sync
-				--label=mgorny-binpkg-docker
-				--build-arg "BASE=${BASE_TARGET}"
-				--network host
-				-t "${target}" .
-			)
-			;;
 		build-*-*-kernel-*)
 			BASE_TARGET=build-${target_arch}-kernel-deps
 			DOCKER_ARGS+=(
@@ -72,7 +61,7 @@ export_vars() {
 			)
 			;;
 		*-kernel-sync)
-			BASE_TARGET=build-${target}
+			BASE_TARGET=build-${target_arch}-kernel-deps
 			DOCKER_ARGS+=(
 				run
 				--network host
