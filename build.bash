@@ -186,11 +186,11 @@ export_vars() {
 	case ${target_arch} in
 		amd64)
 			stage=gentoo/stage3:amd64-nomultilib-${rc}
-			cflags="-march=x86-64 ${flags}"
+			cflags="-march=x86-64 ${cflags}"
 			;;
 		amd64-musl)
 			stage=gentoo/stage3:amd64-musl
-			cflags="-march=x86-64 ${flags}"
+			cflags="-march=x86-64 ${cflags}"
 			;;
 		arm64)
 			stage=gentoo/stage3:arm64-${rc}
@@ -208,11 +208,11 @@ export_vars() {
 			;;
 		x86)
 			stage=gentoo/stage3:i686-${rc}
-			cflags="-march=pentium-m ${flags}"
+			cflags="-march=pentium-m ${cflags}"
 			;;
 		x86-musl)
 			stage=gentoo/stage3:i686-musl
-			cflags="-march=pentium-m ${flags}"
+			cflags="-march=pentium-m ${cflags}"
 			;;
 		*)
 			die "Invalid arch: ${target_arch}"
