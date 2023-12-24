@@ -11,6 +11,9 @@ export_vars() {
 	local target=${1}
 	local target_arch binpkg
 	local rc=openrc
+	local cflags='-mtune=generic -O2 -pipe'
+	local ldflags='-Wl,-O1 -Wl,--as-needed'
+	local use=
 
 	: ${DOCKER:=docker}
 	: ${BINPKGROOT=~/binpkg}
@@ -155,6 +158,9 @@ export_vars() {
 
 			# we need systemd for initramfs
 			rc=systemd
+			# Optimize for smaller initrd
+			cflags=${cflags/-O2/-Oz -flto}
+			use=lto
 
 			DOCKER_ARGS+=(
 				build
@@ -291,8 +297,6 @@ export_vars() {
 			;;
 	esac
 
-	local cflags='-mtune=generic -O2 -pipe'
-	local ldflags='-Wl,-O1 -Wl,--as-needed'
 	local stage
 	case ${target_arch} in
 		amd64)
@@ -349,6 +353,7 @@ export_vars() {
 				--build-arg "BASE=${stage}"
 				--build-arg "CFLAGS=${cflags}"
 				--build-arg "LDFLAGS=${ldflags}"
+				--build-arg "USE=${use}"
 			)
 		fi
 	fi
