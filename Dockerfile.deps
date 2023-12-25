@@ -16,6 +16,6 @@ COPY package.accept_keywords /etc/portage/package.accept_keywords/local
 COPY package.use /etc/portage/package.use/local
 RUN printf '\nCFLAGS="%s"\nCXXFLAGS="%s"\nLDFLAGS="%s"\nBINPKG_COMPRESS="xz"\nBINPKG_COMPRESS_FLAGS="-T1 -9"\nFEATURES="${FEATURES} -sandbox -usersandbox -cgroup binpkg-multi-instance -binpkg-docompress -binpkg-dostrip parallel-install -ipc-sandbox -network-sandbox -pid-sandbox"\nACCEPT_LICENSE="*"\nPKGDIR="/tmp/binpkg"\nBINPKG_FORMAT="gpkg"\nPORTAGE_BINHOST="http://127.0.0.1:8787/"\nMODULES_SIGN_KEY="/tmp/signing_key.pem"\nSECUREBOOT_SIGN_KEY="/tmp/signing_key.pem"\nSECUREBOOT_SIGN_CERT="/tmp/signing_key.pem"\nUSE="%s"\n' "${CFLAGS}" "${CFLAGS}" "${LDFLAGS}" "${USE}" >> /etc/portage/make.conf \
  && rm -rf /etc/portage/binrepos.conf \
- && { [[ -z ${DOCKER_DEPS} ]] || PKGDIR=/tmp/binpkg-cache emerge -1vbgUt --jobs ${DOCKER_DEPS}; } \
+ && { [[ -z ${DOCKER_DEPS} ]] || PKGDIR=/tmp/binpkg-cache emerge -1vbgt --jobs ${DOCKER_DEPS}; } \
  && emerge --info \
  && cat /etc/portage/make.conf
