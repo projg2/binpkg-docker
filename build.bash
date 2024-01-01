@@ -42,12 +42,12 @@ export_vars() {
 				virtual/libelf
 			'
 			case ${target_arch} in
-				amd64|x86)
+				amd64)
 					deps+='
 						sys-firmware/intel-microcode
 					'
 					;&
-				amd64|arm64|x86)
+				amd64|arm64)
 					deps+='
 						app-crypt/sbsigntools
 						app-alternatives/awk
