@@ -154,6 +154,11 @@ export_vars() {
 						sys-process/procps
 					'
 					;;
+				x86)
+					deps+='
+						app-crypt/sbsigntools
+					'
+					;;
 			esac
 
 			# we need systemd for initramfs
