@@ -38,7 +38,7 @@ export_vars() {
 				net-misc/openssh
 				sys-devel/bc
 				sys-kernel/dracut
-				sys-kernel/installkernel-systemd
+				sys-kernel/installkernel
 				virtual/libelf
 			'
 			case ${target_arch} in

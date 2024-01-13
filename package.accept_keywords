@@ -43,7 +43,7 @@ app-crypt/gnupg
 dev-util/pahole
 sys-apps/debianutils
 sys-apps/systemd
-sys-kernel/installkernel-gentoo
+sys-kernel/installkernel
 dev-libs/libb64
 net-libs/grpc
 app-crypt/pesign
