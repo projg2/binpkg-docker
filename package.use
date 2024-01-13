@@ -11,10 +11,10 @@ app-emulation/qemu -aio -caps -filecaps -jpeg -ncurses -png -vhost-net -vnc -xat
 #dev-python/cryptography PYTHON_TARGETS: pypy3
 
 # for kernel testing
-sys-kernel/gentoo-kernel generic-uki modules-sign secureboot test
-sys-kernel/gentoo-kernel-bin test generic-uki
-sys-kernel/vanilla-kernel modules-sign secureboot test
-sys-kernel/vanilla-kernel-bin test
+sys-kernel/gentoo-kernel generic-uki modules-sign secureboot test -initramfs
+sys-kernel/gentoo-kernel-bin test generic-uki -initramfs
+sys-kernel/vanilla-kernel modules-sign secureboot test -initramfs
+sys-kernel/vanilla-kernel-bin test -initramfs
 app-crypt/tpm-emulator modules
 dev-util/sysdig modules
 net-dialup/accel-ppp ipoe
@@ -34,5 +34,5 @@ net-misc/networkmanager iwd
 sys-fs/lvm2 lvm
 sys-kernel/linux-firmware -initramfs deduplicate redistributable
 sys-firmware/intel-microcode -hostonly -initramfs split-ucode
-sys-kernel/installkernel-gentoo -dracut uki -ukify
+sys-kernel/installkernel -dracut -grub uki -ukify
 sys-apps/systemd boot cryptsetup kernel-install pkcs11 policykit tpm udev ukify
