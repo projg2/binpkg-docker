@@ -34,5 +34,5 @@ net-misc/networkmanager iwd
 sys-fs/lvm2 lvm
 sys-kernel/linux-firmware -initramfs deduplicate redistributable
 sys-firmware/intel-microcode -hostonly -initramfs split-ucode
-sys-kernel/installkernel -dracut -grub uki -ukify
+sys-kernel/installkernel -dracut -grub -ukify
 sys-apps/systemd boot cryptsetup kernel-install pkcs11 policykit tpm udev ukify
