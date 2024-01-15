@@ -34,7 +34,7 @@ export_vars() {
 				dev-lang/python:3.12
 				dev-libs/openssl
 				dev-tcltk/expect
-				dev-util/cmake
+				dev-build/cmake
 				net-misc/openssh
 				sys-devel/bc
 				sys-kernel/dracut
