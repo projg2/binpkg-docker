@@ -226,7 +226,6 @@ export_vars() {
 					;;
 				amd64-*)
 					post_pkgs=(
-						net-firewall/rtsp-conntrack
 						sys-fs/vhba
 						sys-power/acpi_call
 						sys-power/bbswitch
@@ -234,7 +233,6 @@ export_vars() {
 					;;
 				x86-*)
 					post_pkgs=(
-						net-firewall/rtsp-conntrack
 						sys-fs/vhba
 						sys-power/bbswitch
 					)
