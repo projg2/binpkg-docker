@@ -31,7 +31,6 @@ export_vars() {
 		build-*-kernel-deps)
 			local deps='
 				app-emulation/qemu
-				dev-lang/python:3.12
 				dev-lang/python:3.13
 				dev-libs/openssl
 				dev-tcltk/expect
