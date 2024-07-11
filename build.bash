@@ -242,7 +242,7 @@ export_vars() {
 
 			DOCKER_ARGS+=(
 				run
-				-e EPYTHON=python3.12
+				-e EPYTHON=python3.13
 				-e PKG="<sys-kernel/${pkg}-${version}.9999"
 				-e POST_PKGS="${post_pkgs[*]}"
 				--network host
