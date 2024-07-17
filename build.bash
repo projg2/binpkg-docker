@@ -125,7 +125,7 @@ export_vars() {
 						sys-apps/rng-tools
 						sys-apps/sed
 						sys-apps/shadow
-						<sys-apps/systemd-256
+						sys-apps/systemd
 						sys-apps/util-linux
 						sys-auth/polkit
 						sys-block/nbd
