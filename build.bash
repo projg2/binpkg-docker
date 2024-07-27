@@ -4,6 +4,9 @@
 
 die() {
 	echo "${@}" >&2
+	tput bel
+	tput bel
+	tput bel
 	exit 1
 }
 
@@ -438,6 +441,8 @@ do_target() {
 	echo "${*}" >&2
 	echo >&2
 	"${@}" || die "${*} failed"
+	tput bel
+	tput bel
 
 	TARGETS_DONE+=( "${target}" )
 }
