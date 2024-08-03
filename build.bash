@@ -383,7 +383,7 @@ do_rsync() {
 				die "rsync download failed"
 		fi
 	done
-	rsync -rv --partial --progress ~/binpkg/. --delete --checksum \
+	rsync -rv --partial --progress ~/binpkg/. --checksum \
 		dev.gentoo.org:public_html/binpkg/ || die "rsync upload failed"
 }
 
