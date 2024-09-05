@@ -93,6 +93,7 @@ export_vars() {
 						dev-libs/oniguruma
 						dev-libs/opensc
 						dev-libs/userspace-rcu
+						dev-util/pahole
 						media-libs/libmtp
 						media-libs/libv4l
 						net-dns/c-ares
