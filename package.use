@@ -36,3 +36,8 @@ sys-kernel/linux-firmware -initramfs deduplicate redistributable
 sys-firmware/intel-microcode -hostonly -initramfs split-ucode
 sys-kernel/installkernel -dracut -grub -ukify
 sys-apps/systemd boot cryptsetup kernel-install pkcs11 policykit tpm udev ukify
+sys-boot/plymouth drm pango systemd udev
+x11-libs/pango X
+x11-libs/cairo X
+media-libs/libglvnd X
+
