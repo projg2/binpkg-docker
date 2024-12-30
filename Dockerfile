@@ -10,6 +10,7 @@ CMD cp -a /var/cache/binpkgs /tmp/binpkg \
 
 COPY signing_key.pem /tmp/signing_key.pem
 COPY kernel-configd /etc/kernel/config.d/local.config
+COPY plymouthd.conf /etc/plymouth/plymouthd.conf
 COPY local.diff /
 RUN patch -p1 -d /var/db/repos/gentoo < /local.diff \
  && rm /local.diff
