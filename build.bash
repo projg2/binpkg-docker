@@ -132,6 +132,7 @@ export_vars() {
 						sys-apps/systemd
 						sys-apps/util-linux
 						sys-auth/polkit
+						sys-boot/plymouth
 						sys-block/nbd
 						sys-devel/gcc
 						sys-fs/btrfs-progs
@@ -156,6 +157,7 @@ export_vars() {
 						sys-libs/readline
 						sys-libs/zlib
 						sys-process/procps
+						x11-libs/libdrm
 					'
 					;;
 				x86)
