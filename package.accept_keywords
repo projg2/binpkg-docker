@@ -1,5 +1,6 @@
 dev-lang/python
 dev-lang/python-exec
+dev-lang/pypy **
 dev-python/pypy **
 dev-python/pypy-exe **
 dev-python/pypy-exe-bin **

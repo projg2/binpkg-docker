@@ -262,7 +262,7 @@ export_vars() {
 				--label=mgorny-binpkg-docker
 				-f Dockerfile.deps
 				--build-arg DOCKER_DEPS='
-					dev-python/pypy
+					dev-lang/pypy:2.7
 					dev-python/pypy-exe-bin
 					'
 				--network host
@@ -282,11 +282,13 @@ export_vars() {
 		*-pypy|*-pypy3_*)
 			BASE_TARGET=build-${target}
 			local pkg=${target##*-}
+			local slot=${pkg#pypy}
+			slot=${slot/_/.}
 
 			DOCKER_ARGS+=(
 				run
 				-e PKG="dev-python/${pkg}-exe"
-				-e POST_PKGS="dev-python/${pkg}"
+				-e POST_PKGS="dev-lang/pypy:${slot:-2.7}"
 				--network host
 			)
 
