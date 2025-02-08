@@ -1,12 +1,12 @@
 dev-lang/python
 dev-lang/python-exec
 dev-lang/pypy **
+dev-lang/pypy3-exe **
+dev-lang/pypy3-exe-bin **
 dev-python/pypy **
 dev-python/pypy-exe **
 dev-python/pypy-exe-bin **
 dev-python/pypy3
-dev-python/pypy3-exe
-dev-python/pypy3-exe-bin
 dev-python/pypy3_9 **
 dev-python/pypy3_9-exe **
 dev-python/pypy3_9-exe-bin **

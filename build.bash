@@ -279,16 +279,24 @@ export_vars() {
 				-t "${target}" .
 			)
 			;;
-		*-pypy|*-pypy3_*)
+		*-pypy)
 			BASE_TARGET=build-${target}
-			local pkg=${target##*-}
-			local slot=${pkg#pypy}
-			slot=${slot/_/.}
+			DOCKER_ARGS+=(
+				run
+				-e PKG="dev-python/pypy-exe"
+				-e POST_PKGS="dev-lang/pypy:2.7"
+				--network host
+			)
+			binpkg=pypy
+			;;
+		*-pypy3_*)
+			BASE_TARGET=build-${target}
+			local pyver=3.${target##*_}
 
 			DOCKER_ARGS+=(
 				run
-				-e PKG="dev-python/${pkg}-exe"
-				-e POST_PKGS="dev-lang/pypy:${slot:-2.7}"
+				-e PKG="=dev-lang/pypy3-exe-${pyver}*"
+				-e POST_PKGS="dev-lang/pypy:${pyver}"
 				--network host
 			)
 
