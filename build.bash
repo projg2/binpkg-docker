@@ -289,6 +289,20 @@ export_vars() {
 			)
 			binpkg=pypy
 			;;
+		*-pypy3_10)
+			BASE_TARGET=build-${target}
+			local pyver=3.${target##*_}
+
+			DOCKER_ARGS+=(
+				run
+				-e PKG="dev-python/pypy3_10-exe"
+				-e POST_PKGS="dev-lang/pypy:${pyver}"
+				--network host
+			)
+
+			binpkg=pypy
+			;;
+
 		*-pypy3_*)
 			BASE_TARGET=build-${target}
 			local pyver=3.${target##*_}
