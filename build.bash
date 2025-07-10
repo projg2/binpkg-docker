@@ -459,7 +459,9 @@ do_target() {
 
 	export_vars "${target}"
 	if [[ -n ${BASE_TARGET} && " ${TARGETS_DONE[*]} " != *" ${BASE_TARGET} "* ]]; then
-		"${0}" "${BASE_TARGET}" || die "Dependency ${BASE_TARGET} failed"
+		if [[ -z ${NODEPS} ]]; then
+			"${0}" "${BASE_TARGET}" || die "Dependency ${BASE_TARGET} failed"
+		fi
 		TARGETS_DONE+=( "${BASE_TARGET}" )
 	fi
 
