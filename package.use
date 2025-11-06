@@ -41,4 +41,4 @@ x11-libs/pango X
 x11-libs/cairo X
 dev-python/pycairo X
 media-libs/libglvnd X
-
+media-libs/freetype harfbuzz
