@@ -252,6 +252,7 @@ export_vars() {
 				-e PKG="<sys-kernel/${pkg}-${version}.9999"
 				-e POST_PKGS="${post_pkgs[*]}"
 				--network host
+				--device /dev/steve:/dev/steve:rw
 			)
 
 			binpkg=kernel
@@ -287,6 +288,7 @@ export_vars() {
 				-e PKG="dev-python/pypy-exe"
 				-e POST_PKGS="dev-lang/pypy:2.7"
 				--network host
+				--device /dev/steve:/dev/steve:rw
 			)
 			binpkg=pypy
 			;;
@@ -313,6 +315,7 @@ export_vars() {
 				-e PKG="=dev-lang/pypy3-exe-${pyver}*"
 				-e POST_PKGS="dev-lang/pypy:${pyver}"
 				--network host
+				--device /dev/steve:/dev/steve:rw
 			)
 
 			binpkg=pypy
