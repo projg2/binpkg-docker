@@ -43,6 +43,7 @@ export_vars() {
 				sys-devel/bc
 				sys-kernel/dracut
 				sys-kernel/installkernel
+				sys-libs/binutils-libs
 				virtual/libelf
 			'
 			case ${target_arch} in
