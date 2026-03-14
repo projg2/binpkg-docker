@@ -265,6 +265,7 @@ export_vars() {
 				--label=mgorny-binpkg-docker
 				-f Dockerfile.deps
 				--build-arg DOCKER_DEPS='
+					dev-build/steve
 					dev-lang/pypy:2.7
 					dev-python/pypy-exe-bin
 					'
