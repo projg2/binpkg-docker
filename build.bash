@@ -323,7 +323,7 @@ export_vars() {
 			binpkg=pypy
 			;;
 
-		prune|prune-all|rsync|status)
+		prune|prune-all|rsync|status|kup)
 			return
 			;;
 
@@ -418,6 +418,29 @@ do_rsync() {
 	done
 }
 
+do_kup() {
+	local arch pkg new_fn major_ver dir
+	for arch in amd64 arm64 ppc64le x86; do
+		cd ~/binpkg/"${arch}"/kernel/sys-kernel/gentoo-kernel ||
+			die "cd failed"
+		for pkg in *.gpkg.tar; do
+			new_fn=${pkg/.gpkg/.${arch}.gpkg}
+			major_ver=${pkg%.*-*}
+			major_ver=${major_ver#gentoo-kernel-}
+			dir=/pub/proj/dist-kernel/binpkg/${arch}/${major_ver}
+
+			# NB: kup's exit status is always zero (read: useless)
+			if ! grep "${new_fn}$" <(kup ls "${dir}"); then
+				ln "${pkg}" "${new_fn}" || die "ln failed"
+				gpg --detach-sign "${new_fn}" || die "gpg failed"
+				kup mkdir "${dir}" || die "kup mkdir failed"
+				kup putraw "${new_fn}" "${new_fn}.sig" "${dir}/" || die "kup putraw failed"
+				rm "${new_fn}" "${new_fn}.sig" || die "rm temp failed"
+			fi
+		done
+	done
+}
+
 do_prune() {
 	local arch
 	for arch in amd64 arm64 ppc64le x86; do
@@ -445,6 +468,10 @@ do_target() {
 	case ${target} in
 		rsync)
 			do_rsync
+			return
+			;;
+		kup)
+			do_kup
 			return
 			;;
 		prune)
