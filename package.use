@@ -42,3 +42,4 @@ x11-libs/cairo X
 dev-python/pycairo X
 media-libs/libglvnd X
 media-libs/freetype harfbuzz
+net-libs/ngtcp2 gnutls
