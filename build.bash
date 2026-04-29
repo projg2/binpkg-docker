@@ -421,8 +421,8 @@ do_rsync() {
 }
 
 do_kup() {
-	local arch pkg new_fn major_ver dir
-	for arch in amd64 arm64 ppc64le x86; do
+	local arch pkg new_fn major_ver dir pypy_dir pypy_name
+	for arch in {amd64,arm64,ppc64le,x86}{,-musl}; do
 		if [[ -d ~/binpkg/${arch}/kernel/sys-kernel/gentoo-kernel ]]; then
 			cd ~/binpkg/"${arch}"/kernel/sys-kernel/gentoo-kernel ||
 				die "cd failed"
@@ -442,6 +442,24 @@ do_kup() {
 				fi
 			done
 		fi
+
+		for pypy_dir in ~/binpkg/${arch}/pypy/*/pypy*-exe; do
+			cd "${pypy_dir}" || die "cd failed"
+			for pkg in *.gpkg.tar; do
+				new_fn=${pkg/.gpkg/.${arch}.gpkg}
+				pypy_name=${pypy_dir##*/}
+				dir=/pub/proj/python/binpkg/${arch}/${pypy_name}
+
+				# NB: kup's exit status is always zero (read: useless)
+				if ! grep "${new_fn}$" <(kup ls "${dir}"); then
+					ln "${pkg}" "${new_fn}" || die "ln failed"
+					gpg --detach-sign "${new_fn}" || die "gpg failed"
+					kup mkdir "${dir}" || die "kup mkdir failed"
+					kup putraw "${new_fn}" "${new_fn}.sig" "${dir}/" || die "kup putraw failed"
+					rm "${new_fn}" "${new_fn}.sig" || die "rm temp failed"
+				fi
+			done
+		done
 	done
 }
 
